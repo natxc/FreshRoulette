@@ -1,0 +1,379 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.App-Container {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@font-face {
+  font-family: 'sofasanshand-bk';
+  src: url('./fonts/sofasanshand-bk-webfont.woff2') format('woff2'),
+    url('./fonts/sofasanshand-bk-webfont.woff') format('woff');
+}
+
+/* body {
+  background: #1FB91C;
+} */
+
+.logo {
+  font-family: 'sofasanshand-bk', Arial, sans-serif;
+  font-size: large;
+  color: #FFFFFF;
+  line-height: 40%;
+}
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.scroll-to-top:hover {
+  background-color: #2980b9;
+}
+
+.grey-box {
+  background-color: #ccc;
+  width: 200px;
+  height: 125px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin-right: 10px; */
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .grey-box {
+    max-width: 100%;
+    /* Adjust the max-width for smaller screens */
+  }
+}
+
+.grey-box span {
+  font-size: 84px;
+  color: darkgrey;
+}
+
+.recipe-image {
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  /* height: auto; */
+}
+
+.recipe-image.accepted img {
+  filter: blur(3px);
+}
+
+.check-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: green;
+  /* Customize the color as needed */
+  font-size: 24px;
+}
+
+.performance-facts {
+  border: 1px solid black;
+  margin: 20px;
+  float: left;
+  width: 280px;
+  padding: 0.5rem;
+
+  table {
+    border-collapse: collapse;
+  }
+}
+
+.performance-facts__title {
+  font-weight: bold;
+  font-size: 2rem;
+  margin: 0 0 0.25rem 0;
+}
+
+.performance-facts__header {
+  border-bottom: 10px solid black;
+  padding: 0 0 0.25rem 0;
+  margin: 0 0 0.5rem 0;
+
+  p {
+    margin: 0;
+  }
+}
+
+.performance-facts__table {
+  width: 100%;
+
+  thead tr {
+
+    th,
+    td {
+      border: 0;
+    }
+  }
+
+  th,
+  td {
+    font-weight: normal;
+    text-align: left;
+    padding: 0.25rem 0;
+    border-top: 1px solid black;
+    white-space: nowrap;
+  }
+
+  td {
+    &:last-child {
+      text-align: right;
+    }
+  }
+
+  .blank-cell {
+    width: 1rem;
+    border-top: 0;
+  }
+
+  .thick-row {
+
+    th,
+    td {
+      border-top-width: 5px;
+    }
+  }
+}
+
+.small-info {
+  font-size: 0.7rem;
+}
+
+.performance-facts__table--small {
+  @extend .performance-facts__table;
+  border-bottom: 1px solid #999;
+  margin: 0 0 0.5rem 0;
+
+  thead {
+    tr {
+      border-bottom: 1px solid black;
+    }
+  }
+
+  td {
+    &:last-child {
+      text-align: left;
+    }
+  }
+
+  th,
+  td {
+    border: 0;
+    padding: 0;
+  }
+}
+
+.performance-facts__table--grid {
+  @extend .performance-facts__table;
+  margin: 0 0 0.5rem 0;
+
+  td {
+    &:last-child {
+      text-align: left;
+
+      &::before {
+        content: "•";
+        font-weight: bold;
+        margin: 0 0.25rem 0 0;
+      }
+    }
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.thick-end {
+  border-bottom: 10px solid black;
+}
+
+.thin-end {
+  border-bottom: 1px solid black;
+}
+
+/* Add any other specific styles for the RecipeDetail component if needed */
+.recipe-cards-wrapper .RecipeDetail {
+  /* Add styles for RecipeDetail components */
+  width: 100%;
+  /* Cards take full width of the container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Example shadow */
+  border-radius: 10px;
+  /* Example rounding */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Add this to your existing CSS file */
+.recipe-card {
+  display: flex;
+  border: 1px solid #ddd;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  overflow: hidden;
+  border-radius: 10px;
+  /* Add border-radius for rounded corners */
+  width: 100%;
+  /* Adjust the width based on your preference */
+  max-width: 600px;
+  /* Set a max-width for responsiveness */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.recipe-detail-image {
+  width: 100%;
+  /* Adjust the width of the image section */
+  border-top-left-radius: 10px;
+  /* Match the top-left corner radius of the card */
+  border-bottom-left-radius: 10px;
+  /* Match the bottom-left corner radius of the card */
+}
+
+.recipe-details {
+  padding: 20px;
+  flex: 1;
+  border-top-right-radius: 10px;
+  /* Match the top-right corner radius of the card */
+  border-bottom-right-radius: 10px;
+  /* Match the bottom-right corner radius of the card */
+}
+
+/* Add a media query for responsiveness */
+@media (max-width: 768px) {
+  .recipe-card {
+    width: 90%;
+    /* Adjust the width for smaller screens */
+  }
+
+  .recipe-detail-image {
+    width: 50%;
+    /* Adjust the width of the image section for smaller screens */
+  }
+}
+
+.about-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.about-content {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+.about-content p {
+  margin-bottom: 15px;
+}
+
+.about-image {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+}
+
+/* Footer styles */
+.container.text-center {
+  margin-top: 20px;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Indie+Flower);
+
+.grocery-list-container {
+  font-family: "Indie Flower", cursive;
+  letter-spacing: 0.1rem;
+  background-image: linear-gradient(90deg, #e8b6b6, 2px, rgba(255, 255, 255, 0), 2px, rgba(255, 255, 255, 0)), linear-gradient(0, #d9eaf3, 1px, rgba(255, 255, 255, 0), 2px, rgba(255, 255, 255, 0));
+  background-position: 4rem 0;
+  background-size: 100% 2.4rem;
+  color: #111;
+  padding: 2.2rem 0 0 5rem;
+  white-space: nowrap;
+
+  /* Initialize Counter */
+  counter-reset: listCounter;
+}
+
+.grocery-list-container h1 {
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.grocery-list-container h2 {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  border-bottom: 2px solid #111;
+}
+
+.grocery-list-container ul {
+  list-style: none;
+  /* Remove default list styles */
+  padding: 0;
+}
+
+.grocery-list-container li {
+  margin-bottom: 0.6rem;
+}
+
+.grocery-list-container li::before {
+  content: counter(listCounter) ". ";
+  counter-increment: listCounter;
+}
