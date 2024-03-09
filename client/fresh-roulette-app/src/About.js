@@ -40,7 +40,7 @@ const About = () => {
                     </p>
 
                     <p>
-                        Disclaimer: not intended to be copyrighted information or steal. And will data will be replaced with original data if requested. Also, a thank you to Kroger
+                        <strong>Disclaimer:</strong> not intended to be copyrighted information or steal. And will data will be replaced with original data if requested. Also, a thank you to Kroger
                         API. Helped map ingredients to categories in a grocery store so my shopping list can be organized by aisle.
                     </p>
 
@@ -56,7 +56,7 @@ const About = () => {
                     </p>
 
                     <p>
-                        Added bonus: How would I market this?
+                        <strong>Added bonus:</strong> How would I market this?
                     </p>
 
                     <p>
