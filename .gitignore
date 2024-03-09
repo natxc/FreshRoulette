@@ -1,6 +1,22 @@
 node_modules
-.env
 build
+build/
 .DS_Store
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Yarn
+yarn-error.log
+yarn.lock
+
+# npm
+npm-debug.log
+
+/.vscode/
