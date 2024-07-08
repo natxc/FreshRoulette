@@ -25,15 +25,23 @@ const GroceryList = ({ recipes }) => {
 
         // Check if the 'recipeIngredients' array is not empty
         if (recipeIngredients.length > 0) {
-            // Filter out duplicate ingredients within each category
+            // Combine quantities and units for each unique ingredient
             const uniqueRecipeIngredients = Array.from(new Set(recipeIngredients.map((item) => item.Ingredient)));
 
-            // Append each unique ingredient with its category
+            // Append each unique ingredient with its category, quantity, and unit
             return acc.concat(
-                uniqueRecipeIngredients.map((ingredient) => ({
-                    ingredient: ingredient,
-                    category: recipeIngredients[0].category // Use the category from the first ingredient
-                }))
+                uniqueRecipeIngredients.map((ingredient) => {
+                    const matchingIngredients = recipeIngredients.filter((item) => item.Ingredient === ingredient);
+
+                    // Concatenate quantities and units for the same ingredient
+                    const combinedQuantity = matchingIngredients.map((item) => item.Quantity).join(' + ');
+                    const combinedUnit = matchingIngredients.map((item) => item.Unit).join(' + ');
+
+                    return {
+                        ingredient: `${combinedQuantity} ${combinedUnit} ${ingredient}`,
+                        category: recipeIngredients[0].category // Use the category from the first ingredient
+                    };
+                })
             );
         }
         return acc;
@@ -52,7 +60,7 @@ const GroceryList = ({ recipes }) => {
                         {combinedIngredients
                             .filter((item) => item.category === category)
                             .map((item, subIndex) => (
-                                <li>{item.ingredient}</li>
+                                <li key={subIndex}>{item.ingredient}</li>
                             ))}
                     </ul>
                 </div>
