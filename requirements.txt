@@ -88,7 +88,7 @@ huggingface-hub==0.17.3
 hvplot==0.8.4
 hyperlink==21.0.0
 idna==3.7
-imagecodecs==2023.1.23
+imagecodecs==2023.9.18
 imageio==2.31.4
 imagesize==1.4.1
 imbalanced-learn==0.10.1
