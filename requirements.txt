@@ -87,7 +87,7 @@ holoviews==1.17.1
 huggingface-hub==0.17.3
 hvplot==0.8.4
 hyperlink==21.0.0
-idna==3.4
+idna==3.7
 imagecodecs==2023.1.23
 imageio==2.31.4
 imagesize==1.4.1
