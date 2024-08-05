@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "cd server && npm install && node index.js"
+    "start": "node server/index.js",
+    "build": "cd client && react-scripts build",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "cors": "^2.8.5",
