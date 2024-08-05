@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node server/index.js",
-    "build": "cd client && npm install && npm run build",
-    "postinstall": "npm run build"
+    // "build": "cd client && npm install && npm run build",
+    // "postinstall": "npm run build"
   },
   "dependencies": {
     "cors": "^2.8.5",
