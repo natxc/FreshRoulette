@@ -1,16 +1,20 @@
 require("dotenv").config({ path: __dirname + "/.env" });
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const pool = require(__dirname + "/config/db.config.js");
 
 const app = express();
-
 const PORT = process.env.PORT || 9000;
 
 // Middleware
 app.use(cors());
+app.use(express.json()); // Ensure JSON request bodies are parsed
 
-// Functions
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+// API Routes
 const handleQuery = (res, query, errorMessage) => {
     pool.query(query, (error, result) => {
         if (error) {
@@ -22,7 +26,6 @@ const handleQuery = (res, query, errorMessage) => {
     });
 };
 
-// Routes
 app.get('/recipes', (req, res) => {
     const query = 'SELECT * FROM recipes';
     const errorMessage = 'Error fetching recipes';
@@ -45,6 +48,11 @@ app.get('/ingredients', (req, res) => {
     const query = 'SELECT ingredients.*, categories."category" FROM ingredients left join categories on ingredients."Ingredient" = categories."ingredient";';
     const errorMessage = 'Error fetching ingredients';
     handleQuery(res, query, errorMessage);
+});
+
+// Handle React routing, return main index.html
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
 app.listen(PORT, () => {
