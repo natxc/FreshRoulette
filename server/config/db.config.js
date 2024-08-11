@@ -6,7 +6,7 @@ const connectionString = process.env.DATABASE_URL || `postgresql://${process.env
 const pool = new Pool({
     connectionString: connectionString,
     ssl: {
-        rejectUnauthorized: process.env.NODE_ENV === 'production',
+        rejectUnauthorized: false, // Allow self-signed certificates
     }
 });
 
