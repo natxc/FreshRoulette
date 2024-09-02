@@ -15,15 +15,15 @@ const About = () => {
                 <div className="about-content">
                     <p>
                         The idea for this project came about many years ago. It was the first time I had lived with a significant other.
-                        We'd often joke over meals together, "I can't believe we have to decide on a meal and make it, 3 times a day, for the rest of
-                        our lives." It's a daunting thought! The mental load, the planning, grocery shopping. Wanting to be healthy, and new or fun,
-                        but not too difficult or take too long to make because we are busy.
+                        We'd often joke over meals together, "I can't believe that 3 times a day, for the rest of
+                        our lives, we have to decide on a meal and make it." It's a daunting thought! The mental load, the planning, grocery shopping. Wanting to be healthy, yet also new and fun,
+                        but not wanting to make something too difficult or that would take too much time.
                     </p>
 
                     <p>
                         Lucky for me, I married that same partner. Even luckier, she volunteers to do the grocery shopping, meal planning, and meal prepping
-                        for us every week. She does a great job of making it healthy, tasty, and plenty of variety week to week. Not only does she do all of that,
-                        but she also works full time. Oh, and is training for her second Ironman.
+                        for us every week. She does a great job of making it healthy, tasty, and loaded with variety week to week. Not only does she do all of that,
+                        but she also works full time. (Oh, and is training for her second Ironman.)
                     </p>
 
                     <p>
@@ -40,7 +40,7 @@ const About = () => {
                     </p>
 
                     <p>
-                        <strong>Disclaimer:</strong> not intended to be copyrighted information or steal. And will data will be replaced with original data if requested. Also, a thank you to Kroger
+                        <strong>Disclaimer:</strong> not intended to be copyrighted information or steal. And all data will be replaced with original data or removed if requested. Also, a thank you to Kroger
                         API. Helped map ingredients to categories in a grocery store so my shopping list can be organized by aisle.
                     </p>
 
