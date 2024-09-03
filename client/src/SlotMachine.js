@@ -123,76 +123,6 @@ const SlotMachine = () => {
 
     // TODO: after shuffle button is hit, an accept button pops up
     // accept prints out recipes details and a grocery list
-    // TODO: create grocery list component and recipe detail component
-    // TODO: able to click a recipe to keep it or keep shuffling any left
-
-    // JSX rendering of the SlotMachine component
-//     return (
-//         <div className="container my-5" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-//             <div className="row">
-//                 <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3 text-center">
-//                     {/* Display Recipe Details and Grocery List after fetching data */}
-//                     {recipes.length > 0 && (
-//                         <div>
-//                             <h2>Selected Recipes Details</h2>
-//                             {recipes.map((recipe, index) => (
-//                                 <RecipeDetail
-//                                     key={index}
-//                                     recipe={recipe}
-//                                     nutrition={nutrition.find((n) => n.Link === recipe.Link)}
-//                                     ingredients={ingredients.filter((i) => i.Link === recipe.Link)}
-//                                     instructions={instructions.filter((instr) => instr.Link === recipe.Link)}
-//                                 />
-//                             ))}
-//                             {/* <GroceryList recipes={recipes} /> */}
-//                         </div>
-//                     )}
-
-//                     <ul className="text-center d-flex justify-content-center align-items-center">
-//                         {selectedRecipes.map((recipe, index) => (
-//                             <li key={index} className="list-inline-item">
-//                                 {/* Display Recipe Details */}
-//                                 <RecipeDetail recipe={recipe} />
-//                                 <h4>{getDayOfWeek(index)}</h4>
-//                             </li>
-//                         ))}
-//                     </ul>
-//                     <button className="btn btn-block btn-success" onClick={startSlotMachine} disabled={isButtonDisabled}>
-//                         Shuffle
-//                     </button>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
-
-//     return (
-//         <div className="container my-5" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-//             <div className="row">
-//                 <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3 text-center">
-//                     <ul className="text-center d-flex justify-content-center align-items-center">
-//                         {selectedRecipes.map((recipe, index) => (
-//                             <li key={index} className="list-inline-item">
-//                                 <h4>{getDayOfWeek(index)}</h4>
-//                                 <img src={recipe.Images} alt={recipe.Recipe} className="rounded" style={{ width: "200px" }} />
-//                                 {/* Display Nutrition Information */}
-//                                 {/* {nutrition.map((nutrient) => {
-//                                     if (nutrient.Link === recipe.Link) {
-//                                         return (
-//                                          <p>Calories: {nutrient.Calories}</p>
-//                                         );
-//                                     }
-//                                     return null; // If no matching nutrition data is found
-//                                 })} */}
-//                             </li>
-//                         ))}
-//                     </ul>
-//                     <button className="btn btn-block btn-success" onClick={startSlotMachine} disabled={isButtonDisabled}>Shuffle</button>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
 
     return (
         <div className="container my-5">
@@ -246,6 +176,7 @@ const SlotMachine = () => {
                                 >
                                     Show Details
                                 </button>
+                                <> </>
                                 <button
                                     className="btn btn-block btn-secondary mb-2"
                                     onClick={showListHandler}
@@ -273,16 +204,9 @@ const SlotMachine = () => {
                         ))}
                     </div>
             )}
-            {/* {showList && (
-                <div className="grocery-list-wrapper">
-                    <GroceryList recipes={acceptedRecipes} />
-    </div>
-)
-} */}
 {
     showList && (
         <div className="grocery-list-wrapper">
-            {/* Render your GroceryList component here */}
             <GroceryList recipes={acceptedRecipes} />
         </div>
     )
