@@ -1,0 +1,186 @@
+.performance-facts {
+    border: 1px solid black;
+    margin: 20px;
+    float: left;
+    width: 280px;
+    padding: 0.5rem;
+
+    table {
+        border-collapse: collapse;
+    }
+}
+
+.performance-facts__title {
+    font-weight: bold;
+    font-size: 2rem;
+    margin: 0 0 0.25rem 0;
+}
+
+.performance-facts__header {
+    border-bottom: 10px solid black;
+    padding: 0 0 0.25rem 0;
+    margin: 0 0 0.5rem 0;
+
+    p {
+        margin: 0;
+    }
+}
+
+.performance-facts__table {
+    width: 100%;
+
+    thead tr {
+
+        th,
+        td {
+            border: 0;
+        }
+    }
+
+    th,
+    td {
+        font-weight: normal;
+        text-align: left;
+        padding: 0.25rem 0;
+        border-top: 1px solid black;
+        white-space: nowrap;
+    }
+
+    td {
+        &:last-child {
+            text-align: right;
+        }
+    }
+
+    .blank-cell {
+        width: 1rem;
+        border-top: 0;
+    }
+
+    .thick-row {
+
+        th,
+        td {
+            border-top-width: 5px;
+        }
+    }
+}
+
+.small-info {
+    font-size: 0.7rem;
+}
+
+.performance-facts__table--small {
+    @extend .performance-facts__table;
+    border-bottom: 1px solid #999;
+    margin: 0 0 0.5rem 0;
+
+    thead {
+        tr {
+            border-bottom: 1px solid black;
+        }
+    }
+
+    td {
+        &:last-child {
+            text-align: left;
+        }
+    }
+
+    th,
+    td {
+        border: 0;
+        padding: 0;
+    }
+}
+
+.performance-facts__table--grid {
+    @extend .performance-facts__table;
+    margin: 0 0 0.5rem 0;
+
+    td {
+        &:last-child {
+            text-align: left;
+
+            &::before {
+                content: "•";
+                font-weight: bold;
+                margin: 0 0.25rem 0 0;
+            }
+        }
+    }
+}
+
+.text-center {
+    text-align: center;
+}
+
+.thick-end {
+    border-bottom: 10px solid black;
+}
+
+.thin-end {
+    border-bottom: 1px solid black;
+}
+
+/* Add any other specific styles for the RecipeDetail component if needed */
+.recipe-cards-wrapper .RecipeDetail {
+    /* Add styles for RecipeDetail components */
+    width: 100%;
+    /* Cards take full width of the container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Example shadow */
+    border-radius: 10px;
+    /* Example rounding */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Add this to your existing CSS file */
+.recipe-card {
+    display: flex;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    overflow: hidden;
+    border-radius: 10px;
+    /* Add border-radius for rounded corners */
+    width: 100%;
+    /* Adjust the width based on your preference */
+    max-width: 600px;
+    /* Set a max-width for responsiveness */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.recipe-detail-image {
+    width: 100%;
+    /* Adjust the width of the image section */
+    border-top-left-radius: 10px;
+    /* Match the top-left corner radius of the card */
+    border-bottom-left-radius: 10px;
+    /* Match the bottom-left corner radius of the card */
+}
+
+.recipe-details {
+    padding: 20px;
+    flex: 1;
+    border-top-right-radius: 10px;
+    /* Match the top-right corner radius of the card */
+    border-bottom-right-radius: 10px;
+    /* Match the bottom-right corner radius of the card */
+}
+
+/* Add a media query for responsiveness */
+@media (max-width: 768px) {
+    .recipe-card {
+        width: 90%;
+        /* Adjust the width for smaller screens */
+    }
+
+    .recipe-detail-image {
+        width: 50%;
+        /* Adjust the width of the image section for smaller screens */
+    }
+}

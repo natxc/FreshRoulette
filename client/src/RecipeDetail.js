@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import "./RecipeDetail.css"
 
 const RecipeDetail = ({ recipe, nutrition, ingredients, instructions }) => {
     if (!recipe) {
