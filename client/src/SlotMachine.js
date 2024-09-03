@@ -5,8 +5,10 @@ import 'react-tooltip/dist/react-tooltip.css'
 import RecipeDetail from "./RecipeDetail";
 import GroceryList from "./GroceryList";
 import "./App.css";
+import "./GroceryList.css"
+import "./SlotMachine.css"
 import { FaCheckCircle } from 'react-icons/fa';
-import { Tooltip as ReactTooltip } from 'react-tooltip'
+import { Tooltip } from 'react-tooltip'
 
 // SlotMachine component
 const SlotMachine = () => {
@@ -128,7 +130,7 @@ const SlotMachine = () => {
 //     return (
 //         <div className="container my-5" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
 //             <div className="row">
-//                 <div className="offset-md-4 col-lg-4 text-center">
+//                 <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3 text-center">
 //                     {/* Display Recipe Details and Grocery List after fetching data */}
 //                     {recipes.length > 0 && (
 //                         <div>
@@ -146,7 +148,7 @@ const SlotMachine = () => {
 //                         </div>
 //                     )}
 
-//                     <ul className="list-inline text-center d-flex justify-content-center align-items-center">
+//                     <ul className="text-center d-flex justify-content-center align-items-center">
 //                         {selectedRecipes.map((recipe, index) => (
 //                             <li key={index} className="list-inline-item">
 //                                 {/* Display Recipe Details */}
@@ -167,8 +169,8 @@ const SlotMachine = () => {
 //     return (
 //         <div className="container my-5" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
 //             <div className="row">
-//                 <div className="offset-md-4 col-lg-4 text-center">
-//                     <ul className="list-inline text-center d-flex justify-content-center align-items-center">
+//                 <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3 text-center">
+//                     <ul className="text-center d-flex justify-content-center align-items-center">
 //                         {selectedRecipes.map((recipe, index) => (
 //                             <li key={index} className="list-inline-item">
 //                                 <h4>{getDayOfWeek(index)}</h4>
@@ -194,70 +196,65 @@ const SlotMachine = () => {
 
     return (
         <div className="container my-5">
-            <ReactTooltip effect="solid" place="bottom" />
             <div className="row">
-                <div className="offset-md-4 col-lg-4 text-center">
-                    <ul className="list-inline text-center d-flex justify-content-center align-items-center">
+                <div className="col-12">
+                    <div className="recipe-container">
                         {selectedRecipes.map((recipe, index) => (
-                            <li key={index} className="list-inline-item">
-                                <h4>{getDayOfWeek(index)}</h4>
+                            <div key={index} className="recipe-item">
+                                <div className="day-of-week">
+                                    <h4>{getDayOfWeek(index)}</h4>
+                                </div>
                                 {recipe.placeholder ? (
-                                    <div className="d-flex mb-3">
-                                        <div className="grey-box">
-                                            <span>?</span>
-                                        </div>
+                                    <div className="grey-box">
+                                        <span>?</span>
                                     </div>
                                 ) : (
-                                    // TODO: fix this class and make the images and grey boxes responsive
                                     <div
                                         className={`recipe-image ${acceptedRecipes.includes(recipe) ? 'accepted' : ''}`}
                                         onClick={() => toggleAcceptance(recipe)}
+                                        data-tooltip-id="recipe-tooltip"
+                                        data-tooltip-content={recipe.Recipe}
                                     >
                                         <img
                                             src={recipe.Images}
                                             alt={recipe.Recipe}
-                                            className="rounded"
-                                            style={{ width: '200px' }}
-                                            data-tooltip-id="my-tooltip"
-                                            data-tooltip-content={recipe.Recipe}
                                         />
-                                        <ReactTooltip id="my-tooltip" place="bottom" />
                                         {acceptedRecipes.includes(recipe) && (
                                             <FaCheckCircle className="check-icon" />
                                         )}
                                     </div>
                                 )}
-                            </li>
+                            </div>
                         ))}
-                    </ul>
-                    <div className="mb-2">
+                    </div>
+                    <Tooltip id="recipe-tooltip" place="bottom" />
+                    <div className="text-center">
                         {acceptedRecipes.length < 7 && (
                             <button
-                                className="btn btn-block btn-success"
+                                className="btn btn-block btn-success mb-2"
                                 onClick={startSlotMachine}
                                 disabled={isButtonDisabled}
                             >
                                 Shuffle
                             </button>
                         )}
-                    </div>
-                    {acceptedRecipes.length === 7 && (
-                        <div className="mb-2">
-                            <button
-                                className="btn btn-block btn-primary"
-                                onClick={showDetailsHandler}
-                                style={{ marginRight: '10px' }}
-                            >
-                                Show Details
-                            </button>
+                        {acceptedRecipes.length === 7 && (
+                            <div>
                                 <button
-                                    className="btn btn-block btn-secondary"
+                                    className="btn btn-block btn-primary mb-2 mr-2"
+                                    onClick={showDetailsHandler}
+                                >
+                                    Show Details
+                                </button>
+                                <button
+                                    className="btn btn-block btn-secondary mb-2"
                                     onClick={showListHandler}
                                 >
                                     Show List
                                 </button>
-                        </div>
-                    )}
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
             {showDetails && (

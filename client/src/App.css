@@ -15,7 +15,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,8 +29,10 @@
 }
 
 .App-Container {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  flex-wrap: wrap;
 }
 
 @keyframes App-logo-spin {
@@ -73,50 +75,6 @@
 
 .scroll-to-top:hover {
   background-color: #9ECE1A;
-}
-
-.grey-box {
-  background-color: #ccc;
-  width: 200px;
-  height: 125px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* margin-right: 10px; */
-  border-radius: 10px;
-}
-
-@media (max-width: 768px) {
-  .grey-box {
-    max-width: 100%;
-    /* Adjust the max-width for smaller screens */
-  }
-}
-
-.grey-box span {
-  font-size: 84px;
-  color: darkgrey;
-}
-
-.recipe-image {
-  position: relative;
-  cursor: pointer;
-  width: 100%;
-  /* height: auto; */
-}
-
-.recipe-image.accepted img {
-  filter: blur(3px);
-}
-
-.check-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: green;
-  /* Customize the color as needed */
-  font-size: 24px;
 }
 
 .performance-facts {
@@ -331,49 +289,4 @@
 /* Footer styles */
 .container.text-center {
   margin-top: 20px;
-}
-
-@import url(https://fonts.googleapis.com/css?family=Indie+Flower);
-
-.grocery-list-container {
-  font-family: "Indie Flower", cursive;
-  letter-spacing: 0.1rem;
-  background-image: linear-gradient(90deg, #e8b6b6, 2px, rgba(255, 255, 255, 0), 2px, rgba(255, 255, 255, 0)), linear-gradient(0, #d9eaf3, 1px, rgba(255, 255, 255, 0), 2px, rgba(255, 255, 255, 0));
-  background-position: 4rem 0;
-  background-size: 100% 2.4rem;
-  color: #111;
-  padding: 2.2rem 0 0 5rem;
-  white-space: nowrap;
-
-  /* Initialize Counter */
-  counter-reset: listCounter;
-}
-
-.grocery-list-container h1 {
-  font-size: 3.2rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-}
-
-.grocery-list-container h2 {
-  display: inline-block;
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 0.6rem;
-  border-bottom: 2px solid #111;
-}
-
-.grocery-list-container ul {
-  list-style: none;
-  /* Remove default list styles */
-  padding: 0;
-}
-
-.grocery-list-container li {
-  margin-bottom: 0.6rem;
-}
-
-.grocery-list-container li::before {
-  content: counter(listCounter) ". ";
-  counter-increment: listCounter;
 }
