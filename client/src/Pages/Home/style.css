@@ -46,8 +46,8 @@
 
 @font-face {
   font-family: 'sofasanshand-bk';
-  src: url('./fonts/sofasanshand-bk-webfont.woff2') format('woff2'),
-    url('./fonts/sofasanshand-bk-webfont.woff') format('woff');
+  src: url('../../fonts/sofasanshand-bk-webfont.woff2') format('woff2'),
+    url('../../fonts/sofasanshand-bk-webfont.woff') format('woff');
 }
 
 /* body {

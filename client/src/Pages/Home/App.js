@@ -1,11 +1,12 @@
 import React from 'react';
-import "./App.css";
-import SlotMachine from "./SlotMachine";
-import Header from './Header';
-import ErrorBoundary from './ErrorBoundary';
-import ScrollToTopButton from './ScrollToTopButton';
-import About from './About';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import "./style.css";
+import Header from '../../Common/Header';
+import ErrorBoundary from '../../Common/ErrorBoundary';
+import ScrollToTopButton from '../../Common/ScrollToTopButton';
+import About from '../About/About.js';
+import SlotMachine from "../SlotMachine/SlotMachine.js";
+
 
 function App() {
   return (

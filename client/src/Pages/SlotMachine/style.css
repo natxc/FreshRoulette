@@ -1,3 +1,4 @@
+/* Slot Machine Layout */
 .recipe-container {
     display: flex;
     flex-wrap: wrap;
@@ -6,6 +7,7 @@
     margin-bottom: 20px;
 }
 
+/* Individual Recipe Items */
 .recipe-item {
     width: calc(100% / 7 - 10px);
     min-width: 100px;
@@ -22,6 +24,7 @@
     width: 100%;
 }
 
+/* Placeholder Box */
 .grey-box {
     background-color: #ccc;
     width: 100%;
@@ -37,6 +40,7 @@
     color: darkgrey;
 }
 
+/* Recipe Images */
 .recipe-image {
     position: relative;
     cursor: pointer;
@@ -52,10 +56,12 @@
     object-fit: cover;
 }
 
+/* Accepted Recipes */
 .recipe-image.accepted img {
     filter: blur(3px);
 }
 
+/* Check Icon */
 .check-icon {
     position: absolute;
     top: 50%;
@@ -65,6 +71,7 @@
     font-size: 24px;
 }
 
+/* Responsive Layout */
 @media (max-width: 768px) {
     .recipe-item {
         width: calc(100% / 4 - 10px);
