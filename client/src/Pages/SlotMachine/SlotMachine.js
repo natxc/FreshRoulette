@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'react-tooltip/dist/react-tooltip.css'
-import RecipeDetail from "./RecipeDetail";
-import GroceryList from "./GroceryList";
-import "./App.css";
-import "./GroceryList.css"
-import "./SlotMachine.css"
 import { FaCheckCircle } from 'react-icons/fa';
 import { Tooltip } from 'react-tooltip'
+
+import RecipeDetail from "../RecipeDetail/RecipeDetail";
+import GroceryList from "../GroceryList/GroceryList";
+
+import "../Home/style.css";
+import "../GroceryList/style.css"
+import "./style.css"
 
 // SlotMachine component
 const SlotMachine = () => {
@@ -105,10 +107,12 @@ const SlotMachine = () => {
 
     const showDetailsHandler = () => {
         setShowDetails(true);
+        setShowList(false); // Ensure list is hidden when details are shown
     };
 
     const showListHandler = () => {
         setShowList(true);
+        setShowDetails(false); // Ensure details are hidden when list is shown
     };
 
     const toggleAcceptance = (recipe) => {
@@ -188,22 +192,41 @@ const SlotMachine = () => {
                     </div>
                 </div>
             </div>
-            {showDetails && (
-                <div className="recipe-cards-wrapper">
+                { showDetails && (
+                    <div className="recipe-cards-wrapper">
                         <br />
-                    <h2 style={{ textAlign: 'center' }}>Recipe Details</h2>
-                        {acceptedRecipes.map((recipe, index) => (
-                            <RecipeDetail
-                                key={index}
-                                recipe={recipe}
-                                nutrition={nutrition.find((n) => n.Link === recipe.Link)}
-                                ingredients={ingredients.filter((i) => i.Link === recipe.Link)}
-                                instructions={instructions.filter((instr) => instr.Link === recipe.Link)}
-                                PDF={recipe.PDF}
-                            />
-                        ))}
+                        <h2 style={{ textAlign: 'center' }}>Recipe Details</h2>
+                        <div className="recipe-grid">
+                            {/* First Row (3 Cards) */}
+                            <div className="recipe-row three-cols">
+                                {acceptedRecipes.slice(0, 3).map((recipe, index) => (
+                                    <RecipeDetail
+                                        key={index}
+                                        recipe={recipe}
+                                        nutrition={nutrition.find((n) => n.Link === recipe.Link)}
+                                        ingredients={ingredients.filter((i) => i.Link === recipe.Link)}
+                                        instructions={instructions.filter((instr) => instr.Link === recipe.Link)}
+                                        PDF={recipe.PDF}
+                                    />
+                                ))}
+                            </div>
+
+                            {/* Second Row (4 Cards) */}
+                            <div className="recipe-row four-cols">
+                                {acceptedRecipes.slice(3, 7).map((recipe, index) => (
+                                    <RecipeDetail
+                                        key={index + 3} // Avoid key conflicts
+                                        recipe={recipe}
+                                        nutrition={nutrition.find((n) => n.Link === recipe.Link)}
+                                        ingredients={ingredients.filter((i) => i.Link === recipe.Link)}
+                                        instructions={instructions.filter((instr) => instr.Link === recipe.Link)}
+                                        PDF={recipe.PDF}
+                                    />
+                                ))}
+                            </div>
+                        </div>
                     </div>
-            )}
+                )}
 {
     showList && (
         <div className="grocery-list-wrapper">

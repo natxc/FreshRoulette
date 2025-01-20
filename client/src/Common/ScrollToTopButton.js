@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaArrowUp } from 'react-icons/fa'; // Assuming you're using react-icons for the arrow icon
-import './App.css';
+import '../Pages/Home/style.css';
 
 const ScrollToTopButton = () => {
     const [isVisible, setIsVisible] = useState(false);
