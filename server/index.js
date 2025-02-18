@@ -14,6 +14,24 @@ app.use(express.json()); // Ensure JSON request bodies are parsed
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '../client/build')));
 
+// Force HTTPS and Redirect Heroku Domain to Custom Domain
+app.use((req, res, next) => {
+    const host = req.headers['x-forwarded-host'] || req.hostname;
+
+    if (host === 'freshroulette-app-685e1b56445b.herokuapp.com') {
+        console.log('Redirecting from Heroku domain to custom domain...');
+        return res.redirect(301, `https://freshroulette.app${req.url}`);
+    }
+
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+        console.log('Redirecting to HTTPS...');
+        return res.redirect(`https://freshroulette.app${req.url}`);
+    }
+
+    next();
+});
+
+
 // API Routes
 const handleQuery = (res, query, errorMessage) => {
     pool.query(query, (error, result) => {
