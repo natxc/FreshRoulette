@@ -20,13 +20,13 @@ const Header = () => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link to="/about" className="btn btn-outline-success me-2" aria-current="page">
+                                {/* <Link to="/about" className="btn btn-outline-success me-2" aria-current="page">
                                     About
-                                </Link>
+                                </Link> */}
                             </li>
                             <li className="nav-item">
                                 {/* <a className="nav-link active" aria-current="page" href="#"> */}
-                                    <button className="btn btn-outline-success me-2">Reviews & Ratings</button>
+                                    {/* <button className="btn btn-outline-success me-2">Reviews & Ratings</button> */}
                                     {/* </a> */}
                             </li>
                         </ul>
