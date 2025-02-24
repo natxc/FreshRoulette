@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
-import SlotMachine from "../SlotMachine/SlotMachine";
+import SlotMachine from "../MenuSelection/MenuSelection";
 import "@testing-library/jest-dom";
 // import axios from "axios";
 
@@ -28,7 +28,7 @@ jest.mock("../RecipeDetail/RecipeDetail", () => () => <div data-testid="recipe-d
 describe("SlotMachine Component", () => {
     test("renders the shuffle button", async () => {
         render(<SlotMachine />);
-        await waitFor(() => expect(screen.getByText("Shuffle")).toBeInTheDocument());
+        await screen.findByText("Shuffle");
     });
 
     // test("disables shuffle button while processing", async () => {
