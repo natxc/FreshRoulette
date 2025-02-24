@@ -1,0 +1,133 @@
+/* =================== MENU SELECTION STYLING =================== */
+.menu-container {
+    text-align: center;
+    padding-top: 100px;
+}
+
+/* Title */
+.menu-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #067121;
+    margin-top: 20px;
+    left: 78px
+}
+
+/* Description */
+.menu-description {
+    font-size: 16px;
+    color: #001B2E;
+    max-width: 623px;
+    margin: 10px auto;
+    text-align: left;
+}
+
+/* Meal Grid */
+.meal-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+/* Meal Card */
+.meal-card {
+    width: 173px;
+    height: 198px;
+    background: #FFFFFF;
+    border-radius: 6px;
+    text-align: center;
+    position: relative;
+}
+
+/* Meal Image */
+.meal-image {
+    width: 173px;
+    height: 115px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.meal-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px 6px 0 0;
+}
+
+/* Lock Button */
+.lock-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.lock-button img {
+    width: 100%;
+    height: 100%;
+}
+
+/* Meal Day */
+.meal-day {
+    font-size: 16px;
+    font-weight: 700;
+    color: #001B2E;
+    margin-top: 10px;
+}
+
+/* Meal Name */
+.meal-name {
+    font-size: 14px;
+    color: #001B2E;
+}
+
+/* Actions (Shuffle & Continue) */
+.menu-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.shuffle-button,
+.continue-button {
+    width: 164px;
+    height: 48px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.shuffle-button {
+    background: #9BC6A6;
+    border: 2px solid #067121;
+}
+
+.continue-button {
+    background: #9BC6A6;
+}
+
+.continue-button:enabled {
+    background: #067121;
+}
+
+.grey-box {
+    width: 173px;
+    height: 115px;
+    background: #d3d3d3;
+    /* Light grey background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: bold;
+    color: #555;
+    border-radius: 6px;
+}

@@ -15,7 +15,7 @@ body {
   height: 88px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   border-bottom: 1px solid black;
   padding: 0 20px;
   z-index: 1000;
