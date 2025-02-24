@@ -1,105 +1,240 @@
-.App {
-  text-align: center;
+body {
+  background: #A0C8AA;
+  margin: 0;
+  font-family: Poppins, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: auto;
+/* ========================= */
+/* NAVBAR (DESKTOP) */
+/* ========================= */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 88px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  border-bottom: 1px solid black;
+  padding: 0 20px;
+  z-index: 1000;
 }
 
-.App-link {
-  color: #61dafb;
+/* Logo (Desktop) */
+.logo-container {
+  position: absolute;
+  left: 32px;
+  top: 30px;
 }
-
-.App-Container {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  flex-wrap: wrap;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@font-face {
-  font-family: 'sofasanshand-bk';
-  src: url('../../fonts/sofasanshand-bk-webfont.woff2') format('woff2'),
-    url('../../fonts/sofasanshand-bk-webfont.woff') format('woff');
-}
-
-/* body {
-  background: #1FB91C;
-} */
 
 .logo {
-  font-family: 'sofasanshand-bk', Arial, sans-serif;
-  font-size: large;
-  color: #FFFFFF;
-  line-height: 40%;
-}
-
-.scroll-to-top {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: green;
-  color: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.scroll-to-top:hover {
-  background-color: #9ECE1A;
-}
-
-.about-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.about-content {
-  font-size: 16px;
-  line-height: 1.6;
-  margin-top: 20px;
-}
-
-.about-content p {
-  margin-bottom: 15px;
-}
-
-.about-image {
-  max-width: 100%;
+  width: 278px;
   height: auto;
-  margin-top: 20px;
+  max-width: 300px;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
 }
 
-/* Footer styles */
-.container.text-center {
+.logo:hover {
+  opacity: 0.8;
+}
+
+/* ========================= */
+/* CONTENT (DESKTOP) */
+/* ========================= */
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: 150px auto 0 auto;
+  flex-wrap: nowrap;
+}
+
+/* CTA Section (Desktop) */
+.cta-section {
+  max-width: 811px;
+  margin-left: 99px;
+}
+
+.cta-title {
+  font-size: 96px;
+  font-weight: 700;
+  color: #067121;
+  text-align: left;
+}
+
+.cta-subtext {
+  font-family: Inter, sans-serif;
+  font-size: 24px;
+  line-height: 1.2;
+  color: #001B2E;
+  max-width: 558px;
+  text-align: left;
+}
+
+.cta-button {
+  background: #067121;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 32px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
   margin-top: 20px;
+  min-width: 158px;
+}
+
+/* Illustration (Desktop) */
+.illustration-container {
+  position: absolute;
+  top: 311px;
+  left: 910px;
+}
+
+.illustration {
+  max-width: 100%;
+  width: 30vw;
+  height: auto;
+}
+
+/* ========================= */
+/* MOBILE STYLES (MAX 768px) */
+/* ========================= */
+@media (max-width: 768px) {
+
+  /* Navbar Adjustments */
+  .navbar {
+    height: 118px;
+    /* Adjust to accommodate larger logo */
+  }
+
+  .logo-container {
+    left: 14px;
+    top: 77px;
+  }
+
+  .logo {
+    width: 202px;
+  }
+
+  /* HAMBURGER MENU */
+  .hamburger {
+    display: none;
+    /* Default: Hidden */
+    position: absolute;
+    width: 24px;
+    height: 18px;
+    top: 76px;
+    right: 20px;
+    cursor: pointer;
+  }
+
+  .bar {
+    width: 100%;
+    height: 4px;
+    background: #001B2E;
+    margin: 3px 0;
+  }
+
+  /* Mobile Menu */
+  .mobile-menu {
+    position: absolute;
+    top: 118px;
+    left: 0;
+    width: 100%;
+    background: white;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .mobile-menu a {
+    display: block;
+    padding: 10px;
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+  }
+
+  /* Content Layout */
+  .content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin-top: 130px;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    width: 358px;
+    height: 241px;
+    position: relative;
+    top: 173px;
+    left: 16px;
+    text-align: center;
+  }
+
+  .cta-title {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 40px;
+    color: #067121;
+    text-align: center;
+  }
+
+  .cta-subtext {
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    line-height: 19.36px;
+    text-align: center;
+    color: #001B2E;
+    max-width: 358px;
+    margin: 10px auto;
+  }
+
+  .cta-button {
+    width: 158px;
+    height: 48px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 12px 32px;
+    margin-top: 20px;
+  }
+
+  /* Illustration (Mobile) */
+  .illustration-container {
+    position: relative;
+    top: 470px;
+    left: 49px;
+  }
+
+  .illustration {
+    width: 304px;
+    height: 262px;
+  }
+}
+
+/* ========================= */
+/* SMALL MOBILE STYLES (MAX 480px) */
+/* ========================= */
+@media (max-width: 480px) {
+  .cta-title {
+    font-size: 28px;
+  }
+
+  .cta-subtext {
+    font-size: 14px;
+  }
+
+  .cta-button {
+    font-size: 14px;
+  }
+
+  .illustration {
+    width: 90%;
+  }
 }
