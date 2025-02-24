@@ -8,6 +8,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.4",
+<<<<<<< Updated upstream
     "express": "^4.21.2",
     "express-sslify": "^1.2.0",
     "pg": "^8.11.3"
