@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './style.css';
 import MenuSelection from '../MenuSelection/MenuSelection';
+import ReviewMenu from '../MenuSelection/ReviewMenu';
+import GroceryList from '../GroceryList/GroceryList'
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
             </main>
           } />
           <Route path="/menu" element={<MenuSelection />} />
+          <Route path="/review-menu" element={<ReviewMenu />} />
+          <Route path="/grocery-list" element={<GroceryList />} />
         </Routes>
       </div>
     </Router>

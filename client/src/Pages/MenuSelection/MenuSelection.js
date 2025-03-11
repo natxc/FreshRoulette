@@ -13,7 +13,7 @@ const MenuSelection = () => {
         const fetchRecipes = async () => {
             try {
                 const response = await axios.get("http://localhost:9001/recipes");
-                console.log("API Response:", response.data); // Debugging API response
+                // console.log("API Response:", response.data); // Debugging API response
 
                 if (!response.data || response.data.length === 0) {
                     console.warn("No recipes received from API");
@@ -71,7 +71,7 @@ const MenuSelection = () => {
                 </Link>
             </header>
 
-            <h2 className="menu-title">This week’s menu</h2>
+            <h2 className="menu-title">This week's menu</h2>
             <p className="menu-description">
                 Lock the meals you want to keep and reshuffle the rest. Once all of your days are locked in, we’ll generate your shopping list.
             </p>
@@ -118,9 +118,11 @@ const MenuSelection = () => {
                 >
                     Shuffle
                 </button>
-                <button className="continue-button" disabled={lockedMeals.length < shuffledMeals.length}>
-                    Continue
-                </button>
+                <Link to="/review-menu" state={{ lockedMeals }}>
+                    <button className="continue-button" disabled={lockedMeals.length < shuffledMeals.length}>
+                        Continue
+                    </button>
+                </Link>
             </div>
         </div>
     );
