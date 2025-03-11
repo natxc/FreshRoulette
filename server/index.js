@@ -1,36 +1,41 @@
 require("dotenv").config({ path: __dirname + "/.env" });
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
+const enforce = require("express-sslify");
 const pool = require(__dirname + "/config/db.config.js");
 
 const app = express();
-const PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT || 9001;
+const isProduction = process.env.NODE_ENV === "production"; 
 
 // Middleware
 app.use(cors());
-app.use(express.json()); // Ensure JSON request bodies are parsed
+app.use(express.json());
 
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, '../client/build')));
+// Trust reverse proxy headers (Heroku, AWS, etc.)
+app.enable("trust proxy");
 
-// Force HTTPS and Redirect Heroku Domain to Custom Domain
-app.use((req, res, next) => {
-    const host = req.headers['x-forwarded-host'] || req.hostname;
+// Force HTTPS (Only in production)
+if (isProduction) {
+    app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
-    if (host === 'freshroulette-app-685e1b56445b.herokuapp.com') {
-        console.log('Redirecting from Heroku domain to custom domain...');
-        return res.redirect(301, `https://freshroulette.app${req.url}`);
-    }
+    app.use((req, res, next) => {
+        const host = req.headers["x-forwarded-host"] || req.hostname;
 
-    if (req.headers['x-forwarded-proto'] !== 'https') {
-        console.log('Redirecting to HTTPS...');
-        return res.redirect(`https://freshroulette.app${req.url}`);
-    }
+        if (host === "freshroulette-app-685e1b56445b.herokuapp.com") {
+            console.log("Redirecting from Heroku domain to custom domain...");
+            return res.redirect(301, `https://freshroulette.app${req.originalUrl}`);
+        }
 
-    next();
-});
+        next();
+    });
+}
 
+// Serve static files from the React app (Only in production)
+if (isProduction) {
+    app.use(express.static(path.join(__dirname, "../client/build")));
+}
 
 // API Routes
 const handleQuery = (res, query, errorMessage) => {
@@ -44,35 +49,35 @@ const handleQuery = (res, query, errorMessage) => {
     });
 };
 
-app.get('/recipes', (req, res) => {
-    const query = 'SELECT * FROM recipes';
-    const errorMessage = 'Error fetching recipes';
-    handleQuery(res, query, errorMessage);
+app.get("/recipes", (req, res) => {
+    handleQuery(res, "SELECT * FROM recipes", "Error fetching recipes");
 });
 
-app.get('/nutrition', (req, res) => {
-    const query = 'SELECT * FROM nutrition';
-    const errorMessage = 'Error fetching nutrition data';
-    handleQuery(res, query, errorMessage);
+app.get("/nutrition", (req, res) => {
+    handleQuery(res, "SELECT * FROM nutrition", "Error fetching nutrition data");
 });
 
-app.get('/instructions', (req, res) => {
-    const query = 'SELECT * FROM instructions';
-    const errorMessage = 'Error fetching instructions';
-    handleQuery(res, query, errorMessage);
+app.get("/instructions", (req, res) => {
+    handleQuery(res, "SELECT * FROM instructions", "Error fetching instructions");
 });
 
-app.get('/ingredients', (req, res) => {
-    const query = 'SELECT ingredients.*, categories."category" FROM ingredients left join categories on ingredients."Ingredient" = categories."ingredient";';
-    const errorMessage = 'Error fetching ingredients';
-    handleQuery(res, query, errorMessage);
+app.get("/ingredients", (req, res) => {
+    handleQuery(
+        res,
+        `SELECT ingredients.*, categories."category" 
+         FROM ingredients 
+         LEFT JOIN categories ON ingredients."Ingredient" = categories."ingredient";`,
+        "Error fetching ingredients"
+    );
 });
 
-// Handle React routing, return main index.html
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-});
+// React Routing (Only in production)
+if (isProduction) {
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+    });
+}
 
 app.listen(PORT, () => {
-    console.log(`Server listening on the port ${PORT}`);
+    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
 });
