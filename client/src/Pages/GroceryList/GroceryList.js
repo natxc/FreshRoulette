@@ -1,70 +1,86 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import "./style.css";
 
-const GroceryList = ({ recipes }) => {
+const GroceryList = () => {
+    const location = useLocation();
+    const recipes = useMemo(() => location.state?.recipes || [], [location.state]);
+
     const [ingredients, setIngredients] = useState([]);
 
     useEffect(() => {
+        if (recipes.length === 0) {
+            return;
+        }
+
         const fetchIngredients = async () => {
             try {
-                const response = await axios.get("/ingredients");
-                setIngredients(response.data);
+                const ingredientPromises = recipes.map((recipe) => {
+                    if (!recipe.uuid) {
+                        return Promise.resolve({ data: [] });
+                    }
+                    return axios.get(`/ingredients?uuid=${recipe.uuid}`);
+                });
+
+                const responses = await Promise.all(ingredientPromises);
+                const allIngredients = responses.flatMap((response) => response.data || []);
+
+                setIngredients(allIngredients);
             } catch (error) {
-                console.error("Error fetching ingredients:", error);
             }
         };
 
         fetchIngredients();
-    }, []); // Empty dependency array ensures the effect runs only once
+    }, [recipes]);
 
-    // Combine ingredients from all recipes
-    const combinedIngredients = recipes.reduce((acc, recipe) => {
-        // Fetch ingredients for the current recipe based on the Link property
-        const recipeIngredients = ingredients.filter((i) => i.Link === recipe.Link);
+    const combinedIngredients = ingredients.reduce((acc, item) => {
+        if (!item.Ingredient) return acc;
 
-        // Check if the 'recipeIngredients' array is not empty
-        if (recipeIngredients.length > 0) {
-            // Combine quantities and units for each unique ingredient
-            const uniqueRecipeIngredients = Array.from(new Set(recipeIngredients.map((item) => item.Ingredient)));
+        const quantity = parseFloat(item.Quantity) || 0;
 
-            // Append each unique ingredient with its category, quantity, and unit
-            return acc.concat(
-                uniqueRecipeIngredients.map((ingredient) => {
-                    const matchingIngredients = recipeIngredients.filter((item) => item.Ingredient === ingredient);
+        if (quantity === 0) return acc;
 
-                    // Concatenate quantities and units for the same ingredient
-                    const combinedQuantity = matchingIngredients.map((item) => item.Quantity).join(' + ');
-                    const combinedUnit = matchingIngredients.map((item) => item.Unit).join(' + ');
+        const existingIngredient = acc.find(
+            (ing) => ing.ingredient === item.Ingredient && ing.unit === item.Unit
+        );
 
-                    return {
-                        ingredient: `${combinedQuantity} ${combinedUnit} ${ingredient}`,
-                        category: recipeIngredients[0].category // Use the category from the first ingredient
-                    };
-                })
-            );
+        if (existingIngredient) {
+            existingIngredient.quantity = Math.round(existingIngredient.quantity + quantity);
+        } else {
+            acc.push({
+                ingredient: item.Ingredient,
+                quantity: Math.round(quantity),
+                unit: item.Unit || "",
+                category: item.category || "Other",
+            });
         }
         return acc;
     }, []);
 
-    // Get unique categories
-    const uniqueCategories = Array.from(new Set(combinedIngredients.map((item) => item.category)));
+    const uniqueCategories = [...new Set(combinedIngredients.map((item) => item.category))];
 
     return (
         <div className="grocery-list-container">
             <h1>Shopping List</h1>
-            {uniqueCategories.map((category, index) => (
-                <div key={index}>
-                    <h2>{category}</h2>
-                    <ul>
-                        {combinedIngredients
-                            .filter((item) => item.category === category)
-                            .map((item, subIndex) => (
-                                <li key={subIndex}>{item.ingredient}</li>
-                            ))}
-                    </ul>
-                </div>
-            ))}
+            {recipes.length === 0 ? (
+                <p>No recipes selected. Go back and choose your meals!</p>
+            ) : (
+                uniqueCategories.map((category, index) => (
+                    <div key={index}>
+                        <h2>{category}</h2>
+                        <ul>
+                            {combinedIngredients
+                                .filter((item) => item.category === category)
+                                .map((item, subIndex) => (
+                                    <li key={subIndex}>
+                                        {item.quantity} {item.unit} {item.ingredient}
+                                    </li>
+                                ))}
+                        </ul>
+                    </div>
+                ))
+            )}
         </div>
     );
 };

@@ -1,12 +1,34 @@
-import React from "react";
-import { useLocation, Link } from "react-router-dom";
+import React, { useEffect, useState, useMemo } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 import RecipeDetail from "../RecipeDetail/RecipeDetail";
 
 const ReviewMenu = () => {
     const location = useLocation();
-    const lockedMeals = location.state?.lockedMeals || [];
+    const navigate = useNavigate();
+    const lockedMealUUIDs = useMemo(() => location.state?.lockedMeals || [], [location.state]);
+    const [lockedMeals, setLockedMeals] = useState([]);
 
-    console.log("Locked Meals Data:", lockedMeals); // Debugging
+    useEffect(() => {
+        const fetchRecipes = async () => {
+            if (lockedMealUUIDs.length === 0) {
+                return;
+            }
+
+            try {
+                const recipePromises = lockedMealUUIDs.map(uuid => axios.get(`http://localhost:9001/recipes/${uuid}`));
+                const recipes = await Promise.all(recipePromises);
+                setLockedMeals(recipes.map(res => res.data));
+            } catch (error) {
+            }
+        };
+
+        fetchRecipes();
+    }, [lockedMealUUIDs]);
+
+    const goToGroceryList = () => {
+        navigate("/grocery-list", { state: { recipes: lockedMeals } });
+    };
 
     return (
         <div className="review-container">
@@ -17,11 +39,11 @@ const ReviewMenu = () => {
                 {lockedMeals.length > 0 ? (
                     lockedMeals.map((meal, index) => (
                         <RecipeDetail
-                            key={meal.uuid || index} // Ensure a unique key
+                            key={meal.uuid || index}
                             recipe={meal}
-                            nutrition={meal.Nutrition}
-                            ingredients={meal.Ingredients || []}
-                            instructions={meal.Instructions || []}
+                            nutrition={meal.nutrition}
+                            ingredients={meal.ingredients}
+                            instructions={meal.instructions}
                         />
                     ))
                 ) : (
@@ -29,10 +51,9 @@ const ReviewMenu = () => {
                 )}
             </div>
 
-
-            <Link to="/grocery-list">
-                <button className="generate-list-button">Generate Grocery List</button>
-            </Link>
+            <button className="generate-list-button" onClick={goToGroceryList}>
+                Generate Grocery List
+            </button>
         </div>
     );
 };
