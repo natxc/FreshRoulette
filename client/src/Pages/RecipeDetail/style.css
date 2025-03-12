@@ -7,9 +7,7 @@
     margin: 20px auto;
     position: relative;
     border-radius: 10px;
-    /* Ensures all corners are rounded */
     overflow: hidden;
-    /* Keeps everything inside */
 }
 
 .featured-recipe-inner {
@@ -36,10 +34,33 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 40px;
 }
 
 .featured-recipe-back {
     transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.performance-facts {
+    width: 90%;
+    text-align: left;
+}
+
+.featured-recipe-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    max-height: 3.6rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    width: 90%;
 }
 
 /* Image with Overlay */
@@ -71,8 +92,10 @@
 
 /* Content */
 .featured-recipe-content {
-    padding: 20px;
-    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 /* Recipe Meta Information */
@@ -127,8 +150,15 @@
 .recipe-instructions {
     text-align: left;
     margin-top: 10px;
-    max-height: 120px;
+    max-height: 140px;
     overflow-y: auto;
+    padding-right: 10px;
+    flex-grow: 1;
+}
+
+.instruction-list {
+    text-align: left;
+    overflow-y: visible;
     padding-right: 10px;
 }
 
@@ -143,13 +173,6 @@
     padding-left: 18px;
 }
 
-.instruction-list {
-    text-align: left;
-    max-height: 150px;
-    overflow-y: auto;
-    padding-right: 10px;
-}
-
 .instruction-step {
     font-size: 0.9rem;
     line-height: 1.4;
@@ -158,7 +181,6 @@
     list-style-type: none;
 }
 
-/* Make instructions scrollable if long */
 .recipe-instructions::-webkit-scrollbar {
     width: 5px;
 }
@@ -170,24 +192,24 @@
 
 /* Button */
 .view-recipe-button {
-    display: inline-block;
-    background-color: #ff5c5c;
+    display: block;
+    background-color: #067121;
     color: #fff;
     border: none;
     border-radius: 5px;
-    padding: 10px 20px;
+    padding: 12px 20px;
     font-size: 1rem;
     cursor: pointer;
     text-decoration: none;
-    width: 90%;
-    /* Ensures it fits inside */
-    margin: 10px auto;
-    /* Centers the button and keeps spacing */
+    width: calc(100% - 40px);
+    margin-top: auto;
+    margin-bottom: 30px;
     text-align: center;
+    position: relative;
 }
 
 .view-recipe-button:hover {
-    background-color: #e54b4b;
+    background-color: #067121;
 }
 
 /* Nutrition Facts */
