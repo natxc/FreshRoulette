@@ -19,6 +19,7 @@ body {
   border-bottom: 1px solid black;
   padding: 0 20px;
   z-index: 1000;
+  background-color: #A0C8AA;
 }
 
 /* Logo (Desktop) */
