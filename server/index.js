@@ -53,6 +53,40 @@ app.get("/recipes", (req, res) => {
     handleQuery(res, "SELECT * FROM recipes", "Error fetching recipes");
 });
 
+app.get("/recipes/:uuid", async (req, res) => {
+    const { uuid } = req.params;
+    try {
+        const recipeQuery = `SELECT * FROM recipes WHERE uuid::text = $1`;
+        const recipeResult = await pool.query(recipeQuery, [uuid]);
+
+        if (recipeResult.rows.length === 0) {
+            return res.status(404).json({ error: "Recipe not found" });
+        }
+
+        const recipe = recipeResult.rows[0];
+        const ingredientsQuery = `SELECT * FROM ingredients WHERE uuid::text = $1`;
+        const nutritionQuery = `SELECT * FROM nutrition WHERE uuid::text = $1`;
+        const instructionsQuery = `SELECT * FROM instructions WHERE uuid::text = $1 ORDER BY sub_index`;
+        const [ingredientsResult, nutritionResult, instructionsResult] = await Promise.all([
+            pool.query(ingredientsQuery, [uuid]),
+            pool.query(nutritionQuery, [uuid]),
+            pool.query(instructionsQuery, [uuid])
+        ]);
+        const fullRecipe = {
+            ...recipe,
+            ingredients: ingredientsResult.rows,
+            nutrition: nutritionResult.rows[0] || null,
+            instructions: instructionsResult.rows
+        };
+
+        res.status(200).json(fullRecipe);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).json({ error: `Database error: ${error.message}` });
+    }
+});
+
+
 app.get("/nutrition", (req, res) => {
     handleQuery(res, "SELECT * FROM nutrition", "Error fetching nutrition data");
 });
