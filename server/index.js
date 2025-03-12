@@ -38,7 +38,6 @@ if (isProduction) {
 }
 
 const handleQuery = (res, query, errorMessage) => {
-    console.log(`Executing query: ${query}`);
     pool.query(query, (error, result) => {
         if (error) {
             console.error(`Database error: ${errorMessage}`, error);
@@ -94,15 +93,36 @@ app.get("/instructions", (req, res) => {
     handleQuery(res, "SELECT * FROM instructions", "Error fetching instructions");
 });
 
-app.get("/ingredients", (req, res) => {
-    handleQuery(
-        res,
-        `SELECT ingredients.*, categories."category" 
-         FROM ingredients 
-         LEFT JOIN categories ON ingredients."Ingredient" = categories."ingredient";`,
-        "Error fetching ingredients"
-    );
+app.get("/ingredients", async (req, res) => {
+    const { uuids } = req.query;
+
+    if (!uuids) {
+        return res.status(400).json({ error: "Recipe UUIDs are required" });
+    }
+
+    const uuidArray = uuids.split(",");
+
+    try {
+        const query = `
+            SELECT ingredients.*, categories."category" 
+            FROM ingredients 
+            LEFT JOIN categories ON ingredients."Ingredient" = categories."ingredient"
+            WHERE ingredients.uuid = ANY($1)
+        `;
+
+        const result = await pool.query(query, [uuidArray]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: "No ingredients found for these recipes" });
+        }
+
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).json({ error: "Error fetching ingredients" });
+    }
 });
+
 
 if (isProduction) {
     app.get("*", (req, res) => {

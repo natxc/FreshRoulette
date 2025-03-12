@@ -2,6 +2,7 @@
 .menu-container {
     text-align: center;
     padding-top: 100px;
+    padding-bottom: 60px;
 }
 
 /* Title */
@@ -142,4 +143,20 @@
     font-weight: bold;
     color: #555;
     border-radius: 6px;
+}
+
+.generate-list-button {
+    width: 164px;
+    height: 48px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #9BC6A6;
+    border: 2px solid #067121;
+    transition: background 0.2s ease-in-out;
+}
+
+.generate-list-button:hover {
+    background: #85AF91;
 }
