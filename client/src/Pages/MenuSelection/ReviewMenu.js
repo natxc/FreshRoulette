@@ -36,7 +36,7 @@ const ReviewMenu = () => {
     };
 
     return (
-        <div className="review-container">
+        <div className="menu-container">
             <h2>Review Your Menu</h2>
             <p>Here are your locked-in meals for the week.</p>
 

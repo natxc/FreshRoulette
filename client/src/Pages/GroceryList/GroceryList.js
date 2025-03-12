@@ -5,78 +5,105 @@ import "./style.css";
 
 const GroceryList = () => {
     const location = useLocation();
-    const recipes = useMemo(() => location.state?.recipes || [], [location.state]);
+    const lockedRecipes = useMemo(() => location.state?.recipes || [], [location.state]);
 
     const [ingredients, setIngredients] = useState([]);
 
     useEffect(() => {
-        if (recipes.length === 0) {
+        if (!lockedRecipes || lockedRecipes.length === 0) {
+            console.warn("⚠️ No locked recipes available, skipping ingredient fetch.");
             return;
         }
 
         const fetchIngredients = async () => {
             try {
-                const ingredientPromises = recipes.map((recipe) => {
-                    if (!recipe.uuid) {
-                        return Promise.resolve({ data: [] });
-                    }
-                    return axios.get(`/ingredients?uuid=${recipe.uuid}`);
-                });
+                const recipeUUIDs = lockedRecipes.map(recipe => recipe.uuid).join(",");
+                const response = await axios.get(`/ingredients?uuids=${recipeUUIDs}`);
 
-                const responses = await Promise.all(ingredientPromises);
-                const allIngredients = responses.flatMap((response) => response.data || []);
-
-                setIngredients(allIngredients);
+                setIngredients(response.data);
             } catch (error) {
             }
         };
 
         fetchIngredients();
-    }, [recipes]);
+    }, [lockedRecipes]);
 
-    const combinedIngredients = ingredients.reduce((acc, item) => {
+    const unitlessIngredients = new Set();
+
+    const groupedIngredients = ingredients.reduce((acc, item) => {
         if (!item.Ingredient) return acc;
 
-        const quantity = parseFloat(item.Quantity) || 0;
+        const ingredientKey = item.Ingredient.trim().toLowerCase();
+        const unit = item.Unit ? item.Unit.trim().toLowerCase() : "no unit";
+        const quantity = item.Quantity ? parseFloat(item.Quantity) || 0 : null;
 
-        if (quantity === 0) return acc;
-
-        const existingIngredient = acc.find(
-            (ing) => ing.ingredient === item.Ingredient && ing.unit === item.Unit
-        );
-
-        if (existingIngredient) {
-            existingIngredient.quantity = Math.round(existingIngredient.quantity + quantity);
+        if (unit === "no unit" && quantity === null) {
+            unitlessIngredients.add(ingredientKey);
         } else {
-            acc.push({
-                ingredient: item.Ingredient,
-                quantity: Math.round(quantity),
-                unit: item.Unit || "",
-                category: item.category || "Other",
-            });
+            if (!acc[ingredientKey]) {
+                acc[ingredientKey] = {};
+            }
+            if (acc[ingredientKey][unit]) {
+                acc[ingredientKey][unit] += quantity;
+            } else {
+                acc[ingredientKey][unit] = quantity;
+            }
         }
-        return acc;
-    }, []);
 
-    const uniqueCategories = [...new Set(combinedIngredients.map((item) => item.category))];
+        return acc;
+    }, {});
+
+    const sortedIngredients = Object.entries(groupedIngredients)
+        .map(([ingredient, units]) => {
+            const formattedQuantities = Object.entries(units)
+                .map(([unit, quantity]) => `${Math.round(quantity * 100) / 100} ${unit === "no unit" ? "" : unit}`)
+                .join(" + ");
+
+            const formattedIngredient = ingredient
+                .split(" ")
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(" ");
+
+            return { ingredient: formattedIngredient, quantity: formattedQuantities };
+        })
+        .sort((a, b) => a.ingredient.localeCompare(b.ingredient));
+
+    unitlessIngredients.forEach((ingredient) => {
+        const formattedIngredient = ingredient
+            .split(" ")
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ");
+        sortedIngredients.push({ ingredient: formattedIngredient, quantity: "" });
+    });
+
+    const categorizedIngredients = sortedIngredients.reduce((acc, item) => {
+        const category = ingredients.find(i => i.Ingredient.trim().toLowerCase() === item.ingredient.toLowerCase())?.category || "Other";
+
+        if (!acc[category]) {
+            acc[category] = [];
+        }
+        acc[category].push(item);
+        return acc;
+    }, {});
+
+    const sortedCategories = Object.keys(categorizedIngredients).sort();
 
     return (
         <div className="grocery-list-container">
+            <br></br>
             <h1>Shopping List</h1>
-            {recipes.length === 0 ? (
+            {lockedRecipes.length === 0 ? (
                 <p>No recipes selected. Go back and choose your meals!</p>
             ) : (
-                uniqueCategories.map((category, index) => (
+                sortedCategories.map((category, index) => (
                     <div key={index}>
                         <h2>{category}</h2>
                         <ul>
-                            {combinedIngredients
-                                .filter((item) => item.category === category)
-                                .map((item, subIndex) => (
-                                    <li key={subIndex}>
-                                        {item.quantity} {item.unit} {item.ingredient}
-                                    </li>
-                                ))}
+                            {categorizedIngredients[category].map((item, subIndex) => (
+                                <li key={subIndex}>
+                                    {item.quantity} {item.ingredient}
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 ))
