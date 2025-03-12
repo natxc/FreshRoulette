@@ -2,46 +2,47 @@ require("dotenv").config({ path: __dirname + "/.env" });
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const enforce = require("express-sslify");
 const pool = require(__dirname + "/config/db.config.js");
 
 const app = express();
 const PORT = process.env.PORT || 9001;
-const isProduction = process.env.NODE_ENV?.trim().toLowerCase() === "production";
+const isProduction = process.env.NODE_ENV === "production"; 
 
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Trust reverse proxy headers (Heroku, AWS, etc.)
 app.enable("trust proxy");
 
+// Force HTTPS (Only in production)
 if (isProduction) {
+    app.use(enforce.HTTPS({ trustProtoHeader: true }));
+
     app.use((req, res, next) => {
         const host = req.headers["x-forwarded-host"] || req.hostname;
 
-        // Redirect Heroku Subdomain to Custom Domain
         if (host === "freshroulette-app-685e1b56445b.herokuapp.com") {
             console.log("Redirecting from Heroku domain to custom domain...");
             return res.redirect(301, `https://freshroulette.app${req.originalUrl}`);
-        }
-
-        // Force HTTPS (Heroku Handles This, But Added for Safety)
-        if (req.headers["x-forwarded-proto"] !== "https") {
-            console.log("Redirecting to HTTPS...");
-            return res.redirect(`https://freshroulette.app${req.originalUrl}`);
         }
 
         next();
     });
 }
 
-app.use(cors());
-app.use(express.json());
-
+// Serve static files from the React app (Only in production)
 if (isProduction) {
     app.use(express.static(path.join(__dirname, "../client/build")));
 }
 
+// API Routes
 const handleQuery = (res, query, errorMessage) => {
     pool.query(query, (error, result) => {
         if (error) {
-            console.error(`Database error: ${errorMessage}`, error);
-            res.status(500).json({ error: errorMessage, details: error.message });
+            console.error(error);
+            res.status(500).json({ error: errorMessage });
             return;
         }
         res.status(200).json(result.rows);
@@ -66,24 +67,25 @@ app.get("/recipes/:uuid", async (req, res) => {
         const ingredientsQuery = `SELECT * FROM ingredients WHERE uuid::text = $1`;
         const nutritionQuery = `SELECT * FROM nutrition WHERE uuid::text = $1`;
         const instructionsQuery = `SELECT * FROM instructions WHERE uuid::text = $1 ORDER BY sub_index`;
-
         const [ingredientsResult, nutritionResult, instructionsResult] = await Promise.all([
             pool.query(ingredientsQuery, [uuid]),
             pool.query(nutritionQuery, [uuid]),
             pool.query(instructionsQuery, [uuid])
         ]);
-
-        res.status(200).json({
+        const fullRecipe = {
             ...recipe,
             ingredients: ingredientsResult.rows,
             nutrition: nutritionResult.rows[0] || null,
             instructions: instructionsResult.rows
-        });
+        };
+
+        res.status(200).json(fullRecipe);
     } catch (error) {
         console.error("Database error:", error);
         res.status(500).json({ error: `Database error: ${error.message}` });
     }
 });
+
 
 app.get("/nutrition", (req, res) => {
     handleQuery(res, "SELECT * FROM nutrition", "Error fetching nutrition data");
@@ -94,48 +96,42 @@ app.get("/instructions", (req, res) => {
 });
 
 app.get("/ingredients", async (req, res) => {
-    const { uuids } = req.query;
-
-    if (!uuids) {
-        return res.status(400).json({ error: "Recipe UUIDs are required" });
-    }
-
-    const uuidArray = uuids.split(",");
-
-    try {
-        const query = `
-            SELECT ingredients.*, categories."category" 
-            FROM ingredients 
-            LEFT JOIN categories ON ingredients."Ingredient" = categories."ingredient"
-            WHERE ingredients.uuid = ANY($1)
-        `;
-
-        const result = await pool.query(query, [uuidArray]);
-
-        if (result.rows.length === 0) {
-            return res.status(404).json({ error: "No ingredients found for these recipes" });
-        }
-
-        res.status(200).json(result.rows);
-    } catch (error) {
-        console.error("Database error:", error);
-        res.status(500).json({ error: "Error fetching ingredients" });
-    }
+     const { uuids } = req.query;
+ 
+     if (!uuids) {
+         return res.status(400).json({ error: "Recipe UUIDs are required" });
+     }
+ 
+     const uuidArray = uuids.split(",");
+ 
+     try {
+         const query = `
+             SELECT ingredients.*, categories."category" 
+             FROM ingredients 
+             LEFT JOIN categories ON ingredients."Ingredient" = categories."ingredient"
+             WHERE ingredients.uuid = ANY($1)
+         `;
+ 
+         const result = await pool.query(query, [uuidArray]);
+ 
+         if (result.rows.length === 0) {
+             return res.status(404).json({ error: "No ingredients found for these recipes" });
+         }
+ 
+         res.status(200).json(result.rows);
+     } catch (error) {
+         console.error("Database error:", error);
+         res.status(500).json({ error: "Error fetching ingredients" });
+     }
 });
 
-
+// React Routing (Only in production)
 if (isProduction) {
     app.get("*", (req, res) => {
-        const indexPath = path.join(__dirname, "../client/build", "index.html");
-        res.sendFile(indexPath, (err) => {
-            if (err) {
-                console.error("Error serving React index.html:", err);
-                res.status(500).send("Internal Server Error");
-            }
-        });
+        res.sendFile(path.join(__dirname, "../client/build", "index.html"));
     });
 }
 
 app.listen(PORT, () => {
-    console.log(`Server running in ${isProduction ? "production" : "development"} mode on port ${PORT}`);
+    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
 });

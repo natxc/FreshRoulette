@@ -1,28 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import "./style.css";
-
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:9001";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import './style.css';
 
 const MenuSelection = () => {
-    const [allRecipes, setAllRecipes] = useState([]);
-    const [shuffledMeals, setShuffledMeals] = useState([]);
-    const [lockedMeals, setLockedMeals] = useState([]);
-    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const [allRecipes, setAllRecipes] = useState([]); // Store all recipes from API
+    const [shuffledMeals, setShuffledMeals] = useState([]); // The currently displayed 7 meals
+    const [lockedMeals, setLockedMeals] = useState([]); // List of locked meal UUIDs
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false); // Prevent double-clicking shuffle
 
     useEffect(() => {
         const fetchRecipes = async () => {
             try {
-                const response = await axios.get(`${API_BASE_URL}/recipes`);
+                const response = await axios.get("http://localhost:9001/recipes");
+                // console.log("API Response:", response.data); // Debugging API response
 
                 if (!response.data || response.data.length === 0) {
+                    console.warn("No recipes received from API");
                     return;
                 }
 
-                setAllRecipes(response.data);
-                setShuffledMeals(response.data.slice(0, 7));
+                setAllRecipes(response.data); // Store all available recipes
+                setShuffledMeals(response.data.slice(0, 7)); // Start with the first 7 recipes
             } catch (error) {
+                console.error("Error fetching recipes:", error);
             }
         };
 
@@ -43,19 +44,22 @@ const MenuSelection = () => {
     const shuffleMeals = () => {
         if (isButtonDisabled) return;
 
-        setIsButtonDisabled(true);
+        setIsButtonDisabled(true); // Disable shuffle button temporarily
 
         setTimeout(() => {
+            // Get all available recipes (excluding locked ones)
             const unlockedMeals = allRecipes.filter((meal) => !lockedMeals.includes(meal.uuid));
 
+            // Shuffle only the unlocked meals
             const shuffled = [...unlockedMeals].sort(() => Math.random() - 0.5);
 
+            // Update selected meals: Keep locked meals, replace others with shuffled ones
             const newMealList = shuffledMeals.map((meal) =>
                 lockedMeals.includes(meal.uuid) ? meal : shuffled.pop()
             );
 
             setShuffledMeals(newMealList);
-            setIsButtonDisabled(false);
+            setIsButtonDisabled(false); // Re-enable shuffle button
         }, 1000);
     };
 
@@ -81,8 +85,9 @@ const MenuSelection = () => {
                                     src={meal.Images}
                                     alt={meal.Recipe || "Meal"}
                                     onError={(e) => {
-                                        e.target.style.display = "none";
-                                        e.target.parentNode.classList.add("grey-box");
+                                        console.error("Image failed to load:", meal.Images);
+                                        e.target.style.display = "none"; // Hide broken image
+                                        e.target.parentNode.classList.add("grey-box"); // Add grey box
                                     }}
                                 />
                             ) : (

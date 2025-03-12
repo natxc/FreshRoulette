@@ -3,14 +3,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import RecipeDetail from "../RecipeDetail/RecipeDetail";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:9001";
-
 const ReviewMenu = () => {
     const location = useLocation();
     const navigate = useNavigate();
-
     const lockedMealUUIDs = useMemo(() => location.state?.lockedMeals || [], [location.state]);
-
     const [lockedMeals, setLockedMeals] = useState([]);
 
     useEffect(() => {
@@ -20,9 +16,8 @@ const ReviewMenu = () => {
             }
 
             try {
-                const recipePromises = lockedMealUUIDs.map(uuid => axios.get(`${API_BASE_URL}/recipes/${uuid}`));
+                const recipePromises = lockedMealUUIDs.map(uuid => axios.get(`http://localhost:9001/recipes/${uuid}`));
                 const recipes = await Promise.all(recipePromises);
-
                 setLockedMeals(recipes.map(res => res.data));
             } catch (error) {
             }
