@@ -16,7 +16,9 @@ const ReviewMenu = () => {
             }
 
             try {
-                const recipePromises = lockedMealUUIDs.map(uuid => axios.get(`http://localhost:9001/recipes/${uuid}`));
+                const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://freshroulette.app";
+                const recipePromises = lockedMealUUIDs.map(uuid => axios.get(`${API_BASE_URL}/recipes/${uuid}`));
+
                 const recipes = await Promise.all(recipePromises);
                 setLockedMeals(recipes.map(res => res.data));
             } catch (error) {
