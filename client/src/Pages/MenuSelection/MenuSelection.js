@@ -20,7 +20,13 @@ const MenuSelection = () => {
                 }
 
                 setAllRecipes(response.data);
-                setShuffledMeals(response.data.slice(0, 7));
+
+                const shuffleArray = (array) => {
+                    return array.sort(() => Math.random() - 0.5);
+                };
+
+                const shuffledRecipes = shuffleArray([...response.data]);
+                setShuffledMeals(shuffledRecipes.slice(0, 7));
             } catch (error) {
                 console.error("Error fetching recipes:", error);
             }
