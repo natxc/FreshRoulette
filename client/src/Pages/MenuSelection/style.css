@@ -160,3 +160,35 @@
 .generate-list-button:hover {
     background: #85AF91;
 }
+
+.bon-appetit {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .meal-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .meal-card {
+        width: 100%;
+    }
+
+    .meal-card:nth-child(7) {
+        grid-column: 1;
+    }
+
+    .bon-appetit {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: left;
+        font-size: 3.5rem;
+        font-weight: bold;
+        color: #067121;
+        height: 198px;
+    }
+}

@@ -4,24 +4,23 @@ import axios from 'axios';
 import './style.css';
 
 const MenuSelection = () => {
-    const [allRecipes, setAllRecipes] = useState([]); // Store all recipes from API
-    const [shuffledMeals, setShuffledMeals] = useState([]); // The currently displayed 7 meals
-    const [lockedMeals, setLockedMeals] = useState([]); // List of locked meal UUIDs
-    const [isButtonDisabled, setIsButtonDisabled] = useState(false); // Prevent double-clicking shuffle
+    const [allRecipes, setAllRecipes] = useState([]);
+    const [shuffledMeals, setShuffledMeals] = useState([]);
+    const [lockedMeals, setLockedMeals] = useState([]);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false); 
 
     useEffect(() => {
         const fetchRecipes = async () => {
             try {
                 const response = await axios.get("http://localhost:9001/recipes");
-                // console.log("API Response:", response.data); // Debugging API response
 
                 if (!response.data || response.data.length === 0) {
                     console.warn("No recipes received from API");
                     return;
                 }
 
-                setAllRecipes(response.data); // Store all available recipes
-                setShuffledMeals(response.data.slice(0, 7)); // Start with the first 7 recipes
+                setAllRecipes(response.data);
+                setShuffledMeals(response.data.slice(0, 7));
             } catch (error) {
                 console.error("Error fetching recipes:", error);
             }
@@ -44,22 +43,19 @@ const MenuSelection = () => {
     const shuffleMeals = () => {
         if (isButtonDisabled) return;
 
-        setIsButtonDisabled(true); // Disable shuffle button temporarily
+        setIsButtonDisabled(true);
 
         setTimeout(() => {
-            // Get all available recipes (excluding locked ones)
             const unlockedMeals = allRecipes.filter((meal) => !lockedMeals.includes(meal.uuid));
 
-            // Shuffle only the unlocked meals
             const shuffled = [...unlockedMeals].sort(() => Math.random() - 0.5);
 
-            // Update selected meals: Keep locked meals, replace others with shuffled ones
             const newMealList = shuffledMeals.map((meal) =>
                 lockedMeals.includes(meal.uuid) ? meal : shuffled.pop()
             );
 
             setShuffledMeals(newMealList);
-            setIsButtonDisabled(false); // Re-enable shuffle button
+            setIsButtonDisabled(false);
         }, 1000);
     };
 
@@ -73,7 +69,7 @@ const MenuSelection = () => {
 
             <h2 className="menu-title">This week's menu</h2>
             <p className="menu-description">
-                Lock the meals you want to keep and reshuffle the rest. Once all of your days are locked in, we’ll generate your shopping list.
+                Lock the meals you want to keep and reshuffle the rest. Once all of your days are locked in, we'll generate your shopping list.
             </p>
 
             <div className="meal-grid">
@@ -108,6 +104,11 @@ const MenuSelection = () => {
                         <p className="meal-name">{meal.Recipe || "No Title"}</p>
                     </div>
                 ))}
+
+                {shuffledMeals.length === 7 && (
+                    <div className="bon-appetit">Bon Appétit</div>
+                )}
+
             </div>
 
             <div className="menu-actions">
