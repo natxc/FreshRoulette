@@ -34,23 +34,24 @@ const ReviewMenu = () => {
 
     return (
         <div className="menu-container">
-            <h2>Review Your Menu</h2>
-            <p>Here are your locked-in meals for the week.</p>
+            <div className="menu-header">
+                <h2 className="menu-title">This week's menu</h2>
+                <button className="generate-list-button" onClick={goToGroceryList}>
+                    View Grocery List
+                </button>
+            </div>
+
 
             <div className="meal-list">
-                {lockedMeals.length > 0 ? (
-                    lockedMeals.map((meal, index) => (
-                        <RecipeDetail
-                            key={meal.uuid || index}
-                            recipe={meal}
-                            nutrition={meal.nutrition}
-                            ingredients={meal.ingredients}
-                            instructions={meal.instructions}
-                        />
-                    ))
-                ) : (
-                    <p>No meals selected.</p>
-                )}
+                {lockedMeals.map((meal, index) => (
+                    <RecipeDetail
+                        key={meal.uuid || index}
+                        recipe={meal}
+                        nutrition={meal.nutrition}
+                        ingredients={meal.ingredients}
+                        instructions={meal.instructions}
+                    />
+                ))}
             </div>
 
             <button className="generate-list-button" onClick={goToGroceryList}>

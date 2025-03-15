@@ -16,6 +16,36 @@
     position: relative;
 }
 
+.menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 78px;
+    /* Adjust to match Figma positioning */
+    margin-bottom: 20px;
+}
+
+.generate-list-button {
+    width: 226px;
+    height: 48px;
+    background: #067121;
+    border-radius: 6px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 12px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.generate-list-button:hover {
+    background: #055a1a;
+}
+
 /* Description */
 .menu-description {
     font-size: 16px;
@@ -100,6 +130,24 @@
     max-height: calc(1.4em * 2);
 }
 
+.meal-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.meal-list>*:nth-child(8) {
+    display: none;
+}
+
+.meal-list::after {
+    content: "";
+    width: 312px;
+    height: 443px;
+}
+
 /* Actions (Shuffle & Continue) */
 .menu-actions {
     display: flex;
@@ -142,22 +190,6 @@
     font-weight: bold;
     color: #555;
     border-radius: 6px;
-}
-
-.generate-list-button {
-    width: 164px;
-    height: 48px;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    background: #9BC6A6;
-    border: 2px solid #067121;
-    transition: background 0.2s ease-in-out;
-}
-
-.generate-list-button:hover {
-    background: #85AF91;
 }
 
 .bon-appetit {
