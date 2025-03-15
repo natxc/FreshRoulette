@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import RecipeDetail from "../RecipeDetail/RecipeDetail";
 
 const ReviewMenu = () => {
     const location = useLocation();
-    const navigate = useNavigate();
     const lockedMealUUIDs = useMemo(() => location.state?.lockedMeals || [], [location.state]);
     const [lockedMeals, setLockedMeals] = useState([]);
 
@@ -29,7 +28,11 @@ const ReviewMenu = () => {
     }, [lockedMealUUIDs]);
 
     const goToGroceryList = () => {
-        navigate("/grocery-list", { state: { recipes: lockedMeals } });
+        if (lockedMeals.length > 0) {
+            localStorage.setItem("groceryListData", JSON.stringify(lockedMeals));
+        }
+
+        window.open("/grocery-list", "_blank");
     };
 
     return (
