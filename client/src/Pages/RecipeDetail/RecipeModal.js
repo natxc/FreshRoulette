@@ -4,6 +4,8 @@ import "./style.css";
 const RecipeModal = ({ recipe, onClose }) => {
     if (!recipe) return null;
 
+    const { Recipe, Total_Time, Images, Cooking_Difficulty } = recipe;
+
     return (
         <div className="modal-overlay">
             <div className="modal-container">
@@ -11,29 +13,38 @@ const RecipeModal = ({ recipe, onClose }) => {
                 <button className="modal-close" onClick={onClose}>✕</button>
 
                 {/* Recipe Image */}
-                <img src={recipe.image} alt={recipe.name} className="modal-image" />
+                <img src={Images} alt={Recipe} className="modal-image" />
 
                 {/* Recipe Title */}
-                <h2 className="modal-title">{recipe.name}</h2>
+                <h2 className="modal-title">{Recipe}</h2>
 
                 {/* Cooking Info */}
                 <div className="modal-info">
-                    <p><strong>Time:</strong> {recipe.totalTime} min</p>
-                    <p><strong>Difficulty:</strong> {recipe.difficulty}</p>
-                    <p><strong>Ingredients:</strong> {recipe.ingredients.length}</p>
+                    <p><span className="meta-icon">⏱</span> {Total_Time} min</p>
+                    <p><span className="meta-icon">🔥</span> {Cooking_Difficulty}</p>
+                    <p className="ingredients-tooltip">
+                    <span className="meta-icon">📋</span>
+                        {recipe.ingredients.length} Ingredients
+                        <span className="tooltip-text">
+                        {recipe.ingredients.map((ingredient, index) => (
+                            <div key={index}>
+                                {ingredient.Quantity} {ingredient.Unit} {ingredient.Ingredient}
+                            </div>
+                        ))}
+                    </span></p>
                 </div>
 
                 {/* Instructions Heading */}
                 <h3 className="modal-instructions-heading">Instructions</h3>
                 <div className="modal-instructions">
                     {Array.isArray(recipe.instructions) ? (
-                        <ol>
+                        <ul>
                             {recipe.instructions.map((step, index) => (
                                 <li key={step.uuid || index}>{step.Step}</li>
                             ))}
-                        </ol>
+                        </ul>
                     ) : (
-                        <p>{recipe.instructions}</p> // If it's just a string, render normally
+                        <p>{recipe.instructions}</p>
                     )}
                 </div>
             </div>
