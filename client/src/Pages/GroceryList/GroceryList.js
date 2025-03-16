@@ -96,7 +96,7 @@ const GroceryList = () => {
     return (
         <div className="grocery-list-container">
             <br></br>
-            <h1>Shopping List for all Recipes</h1>
+            <h1>Shopping List</h1>
             {lockedRecipes.length === 0 ? (
                 <p>No recipes selected. Go back and choose your meals!</p>
             ) : (

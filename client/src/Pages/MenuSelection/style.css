@@ -223,26 +223,3 @@
         height: 198px;
     }
 }
-
-/* Mobile View: Stack cards vertically */
-@media screen and (max-width: 768px) {
-    .meal-list {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        overflow-y: scroll;
-        height: 100vh;
-        padding: 20px 0;
-    }
-
-    .flip-container {
-        width: 90vw;
-        height: 85vh;
-        margin-bottom: -120px;
-    }
-
-    .recipe-card {
-        width: 100%;
-        height: 100%;
-    }
-}
