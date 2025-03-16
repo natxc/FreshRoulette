@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import "./style.css";
 
 const GroceryList = () => {
-    const [lockedRecipes, setLockedRecipes] = useState([]);
-    const [ingredients, setIngredients] = useState([]);
+    const location = useLocation();
+    const lockedRecipes = useMemo(() => location.state?.recipes || [], [location.state]);
 
-    useEffect(() => {
-        const storedRecipes = localStorage.getItem("groceryListData");
-        if (storedRecipes) {
-            setLockedRecipes(JSON.parse(storedRecipes));
-        }
-    }, []);
+    const [ingredients, setIngredients] = useState([]);
 
     useEffect(() => {
         if (!lockedRecipes || lockedRecipes.length === 0) {
@@ -26,7 +22,6 @@ const GroceryList = () => {
 
                 setIngredients(response.data);
             } catch (error) {
-                console.error("Error fetching ingredients:", error);
             }
         };
 
