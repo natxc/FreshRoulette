@@ -53,13 +53,10 @@ const ReviewMenu = () => {
                         nutrition={meal.nutrition}
                         ingredients={meal.ingredients}
                         instructions={meal.instructions}
+                        index={index}
                     />
                 ))}
             </div>
-
-            <button className="generate-list-button" onClick={goToGroceryList}>
-                Generate Grocery List
-            </button>
         </div>
     );
 };
