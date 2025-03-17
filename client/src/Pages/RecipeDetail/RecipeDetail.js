@@ -97,38 +97,38 @@ const RecipeDetail = ({ recipe, nutrition, ingredients, index }) => {
                                         </tr>
                                         {nutrition.Fat && (
                                             <tr>
-                                                <th colSpan="2"><b>Total Fat</b> {nutrition.Fat}g</th>
+                                                <th colSpan="2"><b>Total Fat</b> {nutrition.Fat}</th>
                                                 <td><b>{Math.round((parseInt(nutrition.Fat) / 65) * 100)}%</b></td>
                                             </tr>
                                         )}
                                         {nutrition['Saturated Fat'] && (
                                             <tr>
                                                 <td className="blank-cell"></td>
-                                                <th>Saturated Fat {nutrition['Saturated Fat']}g</th>
+                                                <th>Saturated Fat {nutrition['Saturated Fat']}</th>
                                                 <td><b>{Math.round((parseInt(nutrition['Saturated Fat']) / 20) * 100)}%</b></td>
                                             </tr>
                                         )}
                                         {nutrition.Cholesterol && (
                                             <tr>
-                                                <th colSpan="2"><b>Cholesterol</b> {nutrition.Cholesterol}mg</th>
+                                                <th colSpan="2"><b>Cholesterol</b> {nutrition.Cholesterol}</th>
                                                 <td><b>{Math.round((parseInt(nutrition.Cholesterol) / 300) * 100)}%</b></td>
                                             </tr>
                                         )}
                                         {nutrition.Sodium && (
                                             <tr>
-                                                <th colSpan="2"><b>Sodium</b> {nutrition.Sodium}mg</th>
+                                                <th colSpan="2"><b>Sodium</b> {nutrition.Sodium}</th>
                                                 <td><b>{Math.round((parseInt(nutrition.Sodium) / 2400) * 100)}%</b></td>
                                             </tr>
                                         )}
                                         {nutrition.Carbohydrate && (
                                             <tr>
-                                                <th colSpan="2"><b>Total Carbohydrate</b> {nutrition.Carbohydrate}g</th>
+                                                <th colSpan="2"><b>Total Carbohydrate</b> {nutrition.Carbohydrate}</th>
                                                 <td><b>{Math.round((parseInt(nutrition.Carbohydrate) / 300) * 100)}%</b></td>
                                             </tr>
                                         )}
                                         {nutrition.Protein && (
                                             <tr className="thick-end">
-                                                <th colSpan="2"><b>Protein</b> {nutrition.Protein}g</th>
+                                                <th colSpan="2"><b>Protein</b> {nutrition.Protein}</th>
                                             </tr>
                                         )}
                                     </tbody>
