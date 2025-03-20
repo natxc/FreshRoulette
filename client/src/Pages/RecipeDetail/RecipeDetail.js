@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./style.css";
 import RecipeModal from "./RecipeModal";
+import "./style.css";
 
 const RecipeDetail = ({ recipe, nutrition, ingredients, index }) => {
     const [isFlipped, setIsFlipped] = useState(false);
@@ -31,7 +31,7 @@ const RecipeDetail = ({ recipe, nutrition, ingredients, index }) => {
     return (
         <>
             <div className="flip-container" onClick={() => setIsFlipped(!isFlipped)}>
-                <div className={`recipe-card ${isFlipped ? "flipped" : ""} ${hintFlip ? "hint-animation" : ""}`}>
+                <div className={`recipe-card ${isFlipped ? "flipped" : ""} ${hintFlip ? "hint-animation" : ""}`} data-testid="recipe-card">
                     {/* FRONT SIDE - Recipe Details */}
                     <div className="recipe-card-front">
                         <div className="image-container">
@@ -40,19 +40,19 @@ const RecipeDetail = ({ recipe, nutrition, ingredients, index }) => {
                         </div>
 
                         <div className="recipe-info">
-                            <p><span className="meta-icon">⏱</span> {Total_Time} min</p>
+                            <p><span className="meta-icon">⏱</span> {Total_Time}</p>
                             <p><span className="meta-icon">🔥</span> {Cooking_Difficulty}</p>
-                            <p className="ingredients-tooltip">
-                                <span className="meta-icon">📋</span>
-                                {ingredients.length} Ingredients
-                                <span className="tooltip-text">
-                                    {ingredients.map((ingredient, i) => (
-                                        <div key={i}>
-                                            {ingredient.Quantity} {ingredient.Unit} {ingredient.Ingredient}
-                                        </div>
-                                    ))}
-                                </span>
-                            </p>
+                            <div className="ingredients-tooltip">
+                            <span className="meta-icon">📋</span>
+                            {ingredients.length} Ingredients
+                            <span className="tooltip-text">
+                                {ingredients.map((ingredient, i) => (
+                                <div key={i}>
+                                    {ingredient.Quantity} {ingredient.Unit} {ingredient.Ingredient}
+                                </div>
+                                ))}
+                            </span>
+                            </div>
                         </div>
 
                         <h3 className="recipe-title">{Recipe}</h3>
@@ -150,7 +150,6 @@ const RecipeDetail = ({ recipe, nutrition, ingredients, index }) => {
                 </div>
             </div>
 
-            {/* Show modal when triggered */}
             {showModal && <RecipeModal recipe={recipe} onClose={() => setShowModal(false)} />}
         </>
     );

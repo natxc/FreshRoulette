@@ -1,12 +1,12 @@
+@import '../variables.css';
+
 body {
-  background: #A0C8AA;
+  background: var(--background-color);
   margin: 0;
-  font-family: Poppins, sans-serif;
+  font-family: var(--font-primary);
 }
 
-/* ========================= */
-/* NAVBAR (DESKTOP) */
-/* ========================= */
+/* =========================  NAVBAR  ========================= */
 .navbar {
   position: fixed;
   top: 0;
@@ -16,13 +16,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--border-color);
   padding: 0 20px;
   z-index: 1000;
-  background-color: #A0C8AA;
+  background-color: var(--background-color);
 }
 
-/* Logo (Desktop) */
 .logo-container {
   position: absolute;
   left: 32px;
@@ -41,9 +40,7 @@ body {
   opacity: 0.8;
 }
 
-/* ========================= */
-/* CONTENT (DESKTOP) */
-/* ========================= */
+/* =========================  CONTENT (DESKTOP) ========================= */
 .content {
   display: flex;
   justify-content: space-between;
@@ -53,42 +50,40 @@ body {
   flex-wrap: nowrap;
 }
 
-/* CTA Section (Desktop) */
 .cta-section {
   max-width: 811px;
   margin-left: 99px;
 }
 
 .cta-title {
-  font-size: 96px;
+  font-size: var(--font-size-xxl);
   font-weight: 700;
-  color: #067121;
+  color: var(--primary-color);
   text-align: left;
 }
 
 .cta-subtext {
-  font-family: Inter, sans-serif;
-  font-size: 24px;
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-lg);
   line-height: 1.2;
-  color: #001B2E;
+  color: var(--text-color);
   max-width: 558px;
   text-align: left;
 }
 
 .cta-button {
-  background: #067121;
-  color: white;
+  background: var(--primary-color);
+  color: var(--white);
   border: none;
-  border-radius: 6px;
+  border-radius: var(--border-radius-sm);
   padding: 12px 32px;
-  font-size: 18px;
+  font-size: var(--font-size-md);
   font-weight: bold;
   cursor: pointer;
   margin-top: 20px;
   min-width: 158px;
 }
 
-/* Illustration (Desktop) */
 .illustration-container {
   position: absolute;
   top: 311px;
@@ -101,15 +96,11 @@ body {
   height: auto;
 }
 
-/* ========================= */
-/* MOBILE STYLES (MAX 768px) */
-/* ========================= */
+/* =========================  MOBILE STYLES (MAX 768px)  ========================= */
 @media (max-width: 768px) {
 
-  /* Navbar Adjustments */
   .navbar {
     height: 118px;
-    /* Adjust to accommodate larger logo */
   }
 
   .logo-container {
@@ -121,10 +112,8 @@ body {
     width: 202px;
   }
 
-  /* HAMBURGER MENU */
   .hamburger {
     display: none;
-    /* Default: Hidden */
     position: absolute;
     width: 24px;
     height: 18px;
@@ -136,17 +125,16 @@ body {
   .bar {
     width: 100%;
     height: 4px;
-    background: #001B2E;
+    background: var(--text-color);
     margin: 3px 0;
   }
 
-  /* Mobile Menu */
   .mobile-menu {
     position: absolute;
     top: 118px;
     left: 0;
     width: 100%;
-    background: white;
+    background: var(--white);
     text-align: center;
     padding: 10px 0;
   }
@@ -154,12 +142,11 @@ body {
   .mobile-menu a {
     display: block;
     padding: 10px;
-    font-size: 18px;
+    font-size: var(--font-size-md);
     text-decoration: none;
-    color: black;
+    color: var(--border-color);
   }
 
-  /* Content Layout */
   .content {
     flex-direction: column;
     align-items: center;
@@ -168,7 +155,6 @@ body {
     margin-top: 130px;
   }
 
-  /* CTA Section */
   .cta-section {
     width: 358px;
     height: 241px;
@@ -179,19 +165,19 @@ body {
   }
 
   .cta-title {
-    font-size: 36px;
+    font-size: var(--font-size-xl);
     font-weight: 700;
     line-height: 40px;
-    color: #067121;
+    color: var(--primary-color);
     text-align: center;
   }
 
   .cta-subtext {
-    font-family: Inter, sans-serif;
-    font-size: 16px;
+    font-family: var(--font-secondary);
+    font-size: var(--font-size-base);
     line-height: 19.36px;
     text-align: center;
-    color: #001B2E;
+    color: var(--text-color);
     max-width: 358px;
     margin: 10px auto;
   }
@@ -199,14 +185,13 @@ body {
   .cta-button {
     width: 158px;
     height: 48px;
-    font-size: 16px;
+    font-size: var(--font-size-base);
     font-weight: bold;
-    border-radius: 6px;
+    border-radius: var(--border-radius-sm);
     padding: 12px 32px;
     margin-top: 20px;
   }
 
-  /* Illustration (Mobile) */
   .illustration-container {
     position: relative;
     top: 470px;
@@ -219,20 +204,18 @@ body {
   }
 }
 
-/* ========================= */
-/* SMALL MOBILE STYLES (MAX 480px) */
-/* ========================= */
+/* =========================  SMALL MOBILE STYLES (MAX 480px)  ========================= */
 @media (max-width: 480px) {
   .cta-title {
     font-size: 28px;
   }
 
   .cta-subtext {
-    font-size: 14px;
+    font-size: var(--font-size-sm);
   }
 
   .cta-button {
-    font-size: 14px;
+    font-size: var(--font-size-sm);
   }
 
   .illustration {
