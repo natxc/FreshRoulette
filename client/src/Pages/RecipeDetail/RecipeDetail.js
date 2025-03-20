@@ -40,7 +40,7 @@ const RecipeDetail = ({ recipe, nutrition, ingredients, index }) => {
                         </div>
 
                         <div className="recipe-info">
-                            <p><span className="meta-icon">⏱</span> {Total_Time} min</p>
+                            <p><span className="meta-icon">⏱</span> {Total_Time}</p>
                             <p><span className="meta-icon">🔥</span> {Cooking_Difficulty}</p>
                             <p className="ingredients-tooltip">
                                 <span className="meta-icon">📋</span>
