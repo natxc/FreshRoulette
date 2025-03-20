@@ -13,7 +13,6 @@
     margin-top: 20px;
     text-align: left;
     margin-left: 50px;
-    /* position: relative; */
 }
 
 .menu-header {
@@ -70,7 +69,6 @@
     position: relative;
 }
 
-/* Meal Image */
 .meal-image {
     width: 173px;
     height: 115px;

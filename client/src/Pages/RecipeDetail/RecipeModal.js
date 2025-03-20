@@ -9,16 +9,13 @@ const RecipeModal = ({ recipe, onClose }) => {
     return (
         <div className="modal-overlay">
             <div className="modal-container">
-                {/* Close button */}
+
                 <button className="modal-close" onClick={onClose}>✕</button>
 
-                {/* Recipe Image */}
                 <img src={Images} alt={Recipe} className="modal-image" />
 
-                {/* Recipe Title */}
                 <h2 className="modal-title">{Recipe}</h2>
 
-                {/* Cooking Info */}
                 <div className="modal-info">
                     <p><span className="meta-icon">⏱</span> {Total_Time} min</p>
                     <p><span className="meta-icon">🔥</span> {Cooking_Difficulty}</p>
@@ -34,7 +31,6 @@ const RecipeModal = ({ recipe, onClose }) => {
                     </span></p>
                 </div>
 
-                {/* Instructions Heading */}
                 <h3 className="modal-instructions-heading">Instructions</h3>
                 <div className="modal-instructions">
                     {Array.isArray(recipe.instructions) ? (

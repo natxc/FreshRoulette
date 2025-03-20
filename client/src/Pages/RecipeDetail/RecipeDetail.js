@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./style.css";
 import RecipeModal from "./RecipeModal";
+import "./style.css";
 
 const RecipeDetail = ({ recipe, nutrition, ingredients, index }) => {
     const [isFlipped, setIsFlipped] = useState(false);
@@ -150,7 +150,6 @@ const RecipeDetail = ({ recipe, nutrition, ingredients, index }) => {
                 </div>
             </div>
 
-            {/* Show modal when triggered */}
             {showModal && <RecipeModal recipe={recipe} onClose={() => setShowModal(false)} />}
         </>
     );

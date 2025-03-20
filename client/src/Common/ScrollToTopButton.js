@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { FaArrowUp } from 'react-icons/fa'; // Assuming you're using react-icons for the arrow icon
+import { FaArrowUp } from 'react-icons/fa';
 import '../Pages/Home/style.css';
 
 const ScrollToTopButton = () => {
     const [isVisible, setIsVisible] = useState(false);
 
-    // Show button when page is scrolled down
     const toggleVisibility = () => {
         if (window.scrollY > 300) {
             setIsVisible(true);
@@ -14,7 +13,6 @@ const ScrollToTopButton = () => {
         }
     };
 
-    // Set up event listener
     useEffect(() => {
         window.addEventListener('scroll', toggleVisibility);
         return () => {
@@ -22,7 +20,6 @@ const ScrollToTopButton = () => {
         };
     }, []);
 
-    // Scroll to top when button is clicked
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,

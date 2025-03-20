@@ -6,9 +6,7 @@ body {
   font-family: var(--font-primary);
 }
 
-/* ========================= */
-/* NAVBAR (DESKTOP) */
-/* ========================= */
+/* =========================  NAVBAR  ========================= */
 .navbar {
   position: fixed;
   top: 0;
@@ -24,7 +22,6 @@ body {
   background-color: var(--background-color);
 }
 
-/* Logo (Desktop) */
 .logo-container {
   position: absolute;
   left: 32px;
@@ -43,9 +40,7 @@ body {
   opacity: 0.8;
 }
 
-/* ========================= */
-/* CONTENT (DESKTOP) */
-/* ========================= */
+/* =========================  CONTENT (DESKTOP) ========================= */
 .content {
   display: flex;
   justify-content: space-between;
@@ -55,7 +50,6 @@ body {
   flex-wrap: nowrap;
 }
 
-/* CTA Section (Desktop) */
 .cta-section {
   max-width: 811px;
   margin-left: 99px;
@@ -90,7 +84,6 @@ body {
   min-width: 158px;
 }
 
-/* Illustration (Desktop) */
 .illustration-container {
   position: absolute;
   top: 311px;
@@ -103,15 +96,11 @@ body {
   height: auto;
 }
 
-/* ========================= */
-/* MOBILE STYLES (MAX 768px) */
-/* ========================= */
+/* =========================  MOBILE STYLES (MAX 768px)  ========================= */
 @media (max-width: 768px) {
 
-  /* Navbar Adjustments */
   .navbar {
     height: 118px;
-    /* Adjust to accommodate larger logo */
   }
 
   .logo-container {
@@ -123,10 +112,8 @@ body {
     width: 202px;
   }
 
-  /* HAMBURGER MENU */
   .hamburger {
     display: none;
-    /* Default: Hidden */
     position: absolute;
     width: 24px;
     height: 18px;
@@ -142,7 +129,6 @@ body {
     margin: 3px 0;
   }
 
-  /* Mobile Menu */
   .mobile-menu {
     position: absolute;
     top: 118px;
@@ -161,7 +147,6 @@ body {
     color: var(--border-color);
   }
 
-  /* Content Layout */
   .content {
     flex-direction: column;
     align-items: center;
@@ -170,7 +155,6 @@ body {
     margin-top: 130px;
   }
 
-  /* CTA Section */
   .cta-section {
     width: 358px;
     height: 241px;
@@ -208,7 +192,6 @@ body {
     margin-top: 20px;
   }
 
-  /* Illustration (Mobile) */
   .illustration-container {
     position: relative;
     top: 470px;
@@ -221,9 +204,7 @@ body {
   }
 }
 
-/* ========================= */
-/* SMALL MOBILE STYLES (MAX 480px) */
-/* ========================= */
+/* =========================  SMALL MOBILE STYLES (MAX 480px)  ========================= */
 @media (max-width: 480px) {
   .cta-title {
     font-size: 28px;

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import RecipeDetail from "../RecipeDetail/RecipeDetail";
+import './style.css';
 
 const ReviewMenu = () => {
     const location = useLocation();
