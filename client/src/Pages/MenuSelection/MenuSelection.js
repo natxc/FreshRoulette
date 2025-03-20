@@ -90,8 +90,8 @@ const MenuSelection = () => {
                                     alt={meal.Recipe || "Meal"}
                                     onError={(e) => {
                                         console.error("Image failed to load:", meal.Images);
-                                        e.target.style.display = "none"; // Hide broken image
-                                        e.target.parentNode.classList.add("grey-box"); // Add grey box
+                                        e.target.style.display = "none";
+                                        e.target.parentNode.classList.add("grey-box");
                                     }}
                                 />
                             ) : (

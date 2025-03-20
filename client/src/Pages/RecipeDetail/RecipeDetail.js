@@ -65,9 +65,15 @@ const RecipeDetail = ({ recipe, nutrition, ingredients, index }) => {
                                 }}>
                                     View Instructions
                                 </button>
-                                <a href={PDF} target="_blank" rel="noopener noreferrer" className="view-recipe-button">
+                                <button 
+                                    className="view-recipe-button" 
+                                    onClick={(e) => { 
+                                        e.stopPropagation();
+                                        window.open(PDF, "_blank", "noopener,noreferrer");
+                                    }}
+                                >
                                     View PDF
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>

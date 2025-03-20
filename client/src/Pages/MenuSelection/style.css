@@ -1,11 +1,9 @@
 /* =================== MENU SELECTION STYLING =================== */
 .menu-container {
     text-align: center;
-    padding-top: 100px;
-    padding-bottom: 60px;
+    padding: 100px 0 60px 0;
 }
 
-/* Title */
 .menu-title {
     font-size: 36px;
     font-weight: 700;
@@ -13,15 +11,14 @@
     margin-top: 20px;
     text-align: left;
     margin-left: 50px;
-    position: relative;
+    /* position: relative; */
 }
 
 .menu-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 78px;
-    /* Adjust to match Figma positioning */
+    padding-right: 78px;
     margin-bottom: 20px;
 }
 
@@ -46,7 +43,6 @@
     background: #055a1a;
 }
 
-/* Description */
 .menu-description {
     font-size: 16px;
     color: #001B2E;
@@ -55,7 +51,6 @@
     text-align: left;
 }
 
-/* Meal Grid */
 .meal-grid {
     display: flex;
     flex-wrap: wrap;
@@ -64,7 +59,6 @@
     margin-top: 30px;
 }
 
-/* Meal Card */
 .meal-card {
     width: 173px;
     height: 198px;
@@ -78,8 +72,6 @@
 .meal-image {
     width: 173px;
     height: 115px;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
 }
 
 .meal-image img {
@@ -88,7 +80,6 @@
     border-radius: 6px 6px 0 0;
 }
 
-/* Lock Button */
 .lock-button {
     position: absolute;
     top: 10px;
@@ -106,7 +97,6 @@
     height: 100%;
 }
 
-/* Meal Day */
 .meal-day {
     font-size: 16px;
     font-weight: 700;
@@ -114,7 +104,6 @@
     margin-top: 10px;
 }
 
-/* Meal Name */
 .meal-name {
     font-size: 0.875rem;
     color: #001B2E;
@@ -138,14 +127,8 @@
     justify-content: center;
 }
 
-.meal-list>*:nth-child(8) {
-    display: none;
-}
-
-.meal-list::after {
-    content: "";
-    width: 312px;
-    height: 443px;
+.meal-list>* {
+    margin-bottom: 40px;
 }
 
 /* Actions (Shuffle & Continue) */
