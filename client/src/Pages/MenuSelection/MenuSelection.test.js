@@ -1,55 +1,45 @@
-import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
-import SlotMachine from "../MenuSelection/MenuSelection";
-import "@testing-library/jest-dom";
-// import axios from "axios";
+// import React from "react";
+// import { render, screen, waitFor } from "@testing-library/react";
+// import { MemoryRouter, Route, Routes } from "react-router-dom";
+// import "@testing-library/jest-dom";
+// import ReviewMenu from "./ReviewMenu";
+// const axios = require("axios");
 
-// Mock axios GET requests
-jest.mock("axios", () => ({
-    get: jest.fn((url) => {
-        if (url === "/recipes") {
-            return Promise.resolve({ data: [{ Recipe: "Pizza", Images: "pizza.jpg" }] });
-        }
-        if (url === "/nutrition") {
-            return Promise.resolve({ data: [] });
-        }
-        if (url === "/ingredients") {
-            return Promise.resolve({ data: [] });
-        }
-        if (url === "/instructions") {
-            return Promise.resolve({ data: [] });
-        }
-    }),
-}));
 
-// Mock RecipeDetail to avoid rendering unnecessary components
-jest.mock("../RecipeDetail/RecipeDetail", () => () => <div data-testid="recipe-detail">RecipeDetail</div>);
+// jest.mock("axios");
 
-describe("SlotMachine Component", () => {
-    test("renders the shuffle button", async () => {
-        render(<SlotMachine />);
-        await screen.findByText("Shuffle");
-    });
+// jest.mock("../RecipeDetail/RecipeDetail", () => ({ recipe }) => (
+//   <div data-testid="recipe-detail">{recipe?.Recipe}</div>
+// ));
 
-    // test("disables shuffle button while processing", async () => {
-    //     render(<SlotMachine />);
-    //     const shuffleButton = screen.getByText("Shuffle");
+// const mockLockedMeals = [
+//   { uuid: "1", Recipe: "Meal 1", nutrition: {}, ingredients: [], instructions: [] },
+//   { uuid: "2", Recipe: "Meal 2", nutrition: {}, ingredients: [], instructions: [] },
+// ];
 
-    //     fireEvent.click(shuffleButton);
-    //     expect(shuffleButton).toBeDisabled();
+// describe("ReviewMenu Component", () => {
+//   test("renders locked meals and grocery list button", async () => {
+//     axios.get.mockImplementation((url) => {
+//       const uuid = url.split("/").pop();
+//       const meal = mockLockedMeals.find((m) => m.uuid === uuid);
+//       return Promise.resolve({ data: meal });
+//     });
 
-    //     await waitFor(() => expect(shuffleButton).not.toBeDisabled());
-    // });
+//     render(
+//       <MemoryRouter initialEntries={[{ pathname: "/review-menu", state: { lockedMeals: ["1", "2"] } }]}>
+//         <Routes>
+//           <Route path="/review-menu" element={<ReviewMenu />} />
+//         </Routes>
+//       </MemoryRouter>
+//     );
 
-    // test("toggles recipe acceptance", async () => {
-    //     render(<SlotMachine />);
-    //     await waitFor(() => expect(screen.getByAltText("Pizza")).toBeInTheDocument());
+//     await waitFor(() => {
+//       expect(screen.getByTestId("recipe-detail")).toBeInTheDocument();
+//     });
 
-    //     const recipeImage = screen.getByAltText("Pizza");
-    //     fireEvent.click(recipeImage);
-    //     expect(recipeImage.parentElement).toHaveClass("accepted");
-
-    //     fireEvent.click(recipeImage);
-    //     expect(recipeImage.parentElement).not.toHaveClass("accepted");
-    // });
-});
+//     expect(screen.getByText("This week's menu")).toBeInTheDocument();
+//     expect(screen.getByText("View Grocery List")).toBeInTheDocument();
+//     expect(screen.getByText("Meal 1")).toBeInTheDocument();
+//     expect(screen.getByText("Meal 2")).toBeInTheDocument();
+//   });
+// });

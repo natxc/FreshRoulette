@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import './style.css';
 import MenuSelection from '../MenuSelection/MenuSelection';
 import ReviewMenu from '../MenuSelection/ReviewMenu';
-import GroceryList from '../GroceryList/GroceryList'
+import GroceryList from '../GroceryList/GroceryList';
+import './style.css';
 
 function App() {
   return (
@@ -19,9 +19,9 @@ function App() {
           <Route path="/" element={
             <main className="content">
               <section className="cta-section">
-                <h2 className="cta-title">What’s on the menu this week</h2>
+                <h2 className="cta-title">What's on the menu this week</h2>
                 <p className="cta-subtext">
-                  Don’t let the mental gymnastics of deciding what to eat keep you from cooking. We’ll help you plan and let you cook.
+                  Don't let the mental gymnastics of deciding what to eat keep you from cooking. We'll help you plan and let you cook.
                 </p>
                 <Link to="/menu">
                   <button className="cta-button">Get Started</button>

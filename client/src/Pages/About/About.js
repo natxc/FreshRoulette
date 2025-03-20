@@ -1,8 +1,8 @@
 import React from 'react';
-import "../Home/style.css";
 import Header from '../../Common/Header';
 import ErrorBoundary from '../../Common/ErrorBoundary';
 import ScrollToTopButton from '../../Common/ScrollToTopButton';
+import "../Home/style.css";
 
 const About = () => {
     return (
