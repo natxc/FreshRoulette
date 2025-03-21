@@ -13,3 +13,8 @@ First came a command line "app", then came this relic before a much-needed redes
 - Preview recipe before locking it in
 - Have the option to drag a "going out to eat" or "having leftovers" to a day of the week and lock that in, in lieu of a recipe
 - Button to send an email with the grocery list and recipe links
+
+### Known Bugs to Fix:
+- Mobile layout and better responsiveness for all devices
+- Ingredient tooltip
+- Blurred images on recipe modals
