@@ -222,7 +222,7 @@ pyobjc-framework-Cocoa==9.0
 pyobjc-framework-CoreServices==9.0
 pyobjc-framework-FSEvents==9.0
 pyodbc==4.0.39
-pyOpenSSL==23.2.0
+pyOpenSSL==26.0.0
 pyparsing==3.0.9
 PyQt5-sip==12.11.0
 pyrsistent==0.18.0
